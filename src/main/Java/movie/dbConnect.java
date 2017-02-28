@@ -23,8 +23,8 @@ public class dbConnect {
         System.out.println("Oracle JDBC Driver Registered");
 
         try {
-            connection = DriverManager.getConnection("jdbc:oracle:thin:@dbhost.ugrad.cs.ubc.ca:1522:ug",
-                                                     "ora_t6z9a@ug",
+            connection = DriverManager.getConnection("jdbc:oracle:thin:@localhost:1522:ug",
+                                                     "ora_t6z9a",
                                                      "a25834102");
             connection.setAutoCommit(false);
         } catch (SQLException e) {
