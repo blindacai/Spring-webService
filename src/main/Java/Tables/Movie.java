@@ -1,6 +1,11 @@
 package Tables;
 
+import Query.dbConnect;
+
 import javax.xml.crypto.Data;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 
 /**
  * Created by linda on 3/8/2017.
@@ -11,8 +16,15 @@ public class Movie {
     private String director;
     private String company;
 
-    public Movie(String title) {
+    public Movie(String title) throws SQLException {
         this.title = title;
+        dbConnect con = new dbConnect();
+        con.connect();
+        Statement stat = con.getConnection().createStatement();
+        String query = "select * from movie where title = " + "'" + title + "'";
+        ResultSet result = stat.executeQuery(query);
+        result.next();
+        this.director = result.getString("director");
     }
 
     public String getTitle() {
