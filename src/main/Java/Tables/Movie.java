@@ -12,12 +12,10 @@ public class Movie {
     private String director;
     private String company;
 
-    public Movie(Database database, String title) throws SQLException {
-        this.title = title;
-        String query = "select * from movie where title = " + "'" + title + "'";
-        ResultSet result = database.getResult(query);
-        result.next();
+    public Movie(ResultSet result) throws SQLException {
+        this.title = result.getString("title");
         this.director = result.getString("director");
+        this.company = result.getString("distributedcompany");
     }
 
     public String getTitle() {

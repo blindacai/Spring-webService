@@ -1,11 +1,14 @@
 package Tables;
 
+import Utils.Query;
 import Utils.dbConnect;
 
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by linda on 3/9/2017.
@@ -29,6 +32,18 @@ public class Database extends dbConnect {
     }
 
     public Movie getMovie(String title) throws SQLException {
-        return new Movie(this, title);
+        String query = "select * from movie where title = " + "'" + title + "'";
+        ResultSet result = getResult(query);
+        result.next();
+        return new Movie(result);
+    }
+
+    public List<Movie> getAllMovies() throws SQLException {
+        List<Movie> movies = new ArrayList<Movie>();
+        ResultSet results = getResult(Query.selectALL("movie"));
+        while(results.next()){
+            movies.add(new Movie(results));
+        }
+        return movies;
     }
 }
