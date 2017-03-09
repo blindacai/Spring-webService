@@ -1,4 +1,4 @@
-package Query;
+package Utils;
 
 public class TestMain {
     public static void main(String[] args) {

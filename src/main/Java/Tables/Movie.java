@@ -1,28 +1,21 @@
 package Tables;
 
-import Query.dbConnect;
-
-import javax.xml.crypto.Data;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
 
 /**
  * Created by linda on 3/8/2017.
  */
 public class Movie {
     private String title;
-    private Data released;
+    private String released;
     private String director;
     private String company;
 
-    public Movie(String title) throws SQLException {
+    public Movie(Database database, String title) throws SQLException {
         this.title = title;
-        dbConnect con = new dbConnect();
-        con.connect();
-        Statement stat = con.getConnection().createStatement();
         String query = "select * from movie where title = " + "'" + title + "'";
-        ResultSet result = stat.executeQuery(query);
+        ResultSet result = database.getResult(query);
         result.next();
         this.director = result.getString("director");
     }
@@ -35,11 +28,11 @@ public class Movie {
         this.title = title;
     }
 
-    public Data getReleased() {
+    public String getReleased() {
         return released;
     }
 
-    public void setReleased(Data released) {
+    public void setReleased(String released) {
         this.released = released;
     }
 

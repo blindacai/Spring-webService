@@ -1,4 +1,4 @@
-package Query;
+package Utils;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -6,10 +6,6 @@ import java.sql.SQLException;
 
 public class dbConnect {
     private Connection connection;
-
-    public dbConnect(){
-
-    }
 
     public void connect() {
         connection = null;
