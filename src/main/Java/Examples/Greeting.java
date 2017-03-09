@@ -1,4 +1,4 @@
-package movie;
+package Examples;
 
 public class Greeting {
 

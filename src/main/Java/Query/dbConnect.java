@@ -1,4 +1,4 @@
-package movie;
+package Query;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
