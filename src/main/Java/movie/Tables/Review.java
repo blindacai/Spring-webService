@@ -8,21 +8,21 @@ import java.sql.SQLException;
 public class Review {
 
     private String text;
-    private Date postdate;
+    private String postdate;
     private int id;
     private int rating;
     private String accountName;
     private String title;
-    private Date releaseDate;
+    private String releaseDate;
 
     public Review(ResultSet result) throws SQLException {
         this.text = result.getString("text");
-        this.postdate = result.getDate("postdate");
+        this.postdate = result.getString("postdate");
         this.id = result.getInt("id");
         this.rating = result.getInt("rating");
         this.accountName = result.getString("accountname");
         this.title = result.getString("title");
-        this.releaseDate = result.getDate("releasedate");
+        this.releaseDate = result.getString("releasedate");
 
     }
 
@@ -32,14 +32,6 @@ public class Review {
 
     public void setText(String text) {
         this.text = text;
-    }
-
-    public Date getPostdate() {
-        return postdate;
-    }
-
-    public void setPostdate(Date postdate) {
-        this.postdate = postdate;
     }
 
     public int getId() {
@@ -74,11 +66,19 @@ public class Review {
         this.title = title;
     }
 
-    public Date getReleaseDate() {
+    public String getPostdate() {
+        return postdate;
+    }
+
+    public void setPostdate(String postdate) {
+        this.postdate = postdate;
+    }
+
+    public String getReleaseDate() {
         return releaseDate;
     }
 
-    public void setReleaseDate(Date releaseDate) {
+    public void setReleaseDate(String releaseDate) {
         this.releaseDate = releaseDate;
     }
 }

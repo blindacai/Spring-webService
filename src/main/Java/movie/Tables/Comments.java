@@ -8,20 +8,20 @@ public class Comments {
 
     private String text;
     private int upVotes;
-    private Date postdate;
+    private String postdate;
     private int id;
     private String accountName;
     private String title;
-    private Date releaseDate;
+    private String releaseDate;
 
     public Comments(ResultSet result) throws SQLException {
         this.text = result.getString("text");
         this.upVotes = result.getInt("upvotes");
-        this.postdate = result.getDate("postdate");
+        this.postdate = result.getString("postdate");
         this.id = result.getInt("id");
         this.accountName = result.getString("accountname");
         this.title = result.getString("title");
-        this.releaseDate = result.getDate("releasedate");
+        this.releaseDate = result.getString("releasedate");
 
     }
 
@@ -39,14 +39,6 @@ public class Comments {
 
     public void setUpVotes(int upVotes) {
         this.upVotes = upVotes;
-    }
-
-    public Date getPostdate() {
-        return postdate;
-    }
-
-    public void setPostdate(Date postdate) {
-        this.postdate = postdate;
     }
 
     public int getId() {
@@ -73,11 +65,21 @@ public class Comments {
         this.title = title;
     }
 
-    public Date getReleaseDate() {
+    public String getPostdate() {
+        return postdate;
+    }
+
+    public void setPostdate(String postdate) {
+        this.postdate = postdate;
+    }
+
+    public String getReleaseDate() {
         return releaseDate;
     }
 
-    public void setReleaseDate(Date releaseDate) {
+    public void setReleaseDate(String releaseDate) {
         this.releaseDate = releaseDate;
     }
+
+
 }

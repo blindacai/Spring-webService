@@ -8,12 +8,12 @@ public class Users {
 
     private String accountName;
     private String email;
-    private Date birthday;
+    private String birthday;
 
     public Users(ResultSet result) throws SQLException {
         this.accountName = result.getString("accountname");
         this.email = result.getString("email");
-        this.birthday = result.getDate("birthday");
+        this.birthday = result.getString("birthday");
     }
 
     public String getAccountName() {
@@ -32,11 +32,11 @@ public class Users {
         this.email = email;
     }
 
-    public Date getBirthday() {
+    public String getBirthday() {
         return birthday;
     }
 
-    public void setBirthday(Date birthday) {
+    public void setBirthday(String birthday) {
         this.birthday = birthday;
     }
 }
