@@ -46,4 +46,20 @@ public class Database extends dbConnect {
         }
         return movies;
     }
+
+    public Actor getActor(String name, String birthday) throws SQLException {
+        String query = "select * from actor where name = '" + name + "' and birthday = '" + birthday + "'";
+        ResultSet result = getResult(query);
+        result.next();
+        return new Actor(result);
+    }
+
+    public List<Actor> getAllActors() throws SQLException {
+        List<Actor> actors = new ArrayList<Actor>();
+        ResultSet results = getResult(Query.selectALL("actor"));
+        while(results.next()){
+            actors.add(new Actor(results));
+        }
+        return actors;
+    }
 }
