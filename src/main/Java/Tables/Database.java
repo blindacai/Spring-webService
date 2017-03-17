@@ -52,4 +52,13 @@ public class Database extends dbConnect {
         }
         return movies;
     }
+
+    public List<Actor> getAllActors() throws SQLException {
+        List<Actor> actors = new ArrayList<Actor>();
+        ResultSet results = getResult(Query.selectALL("actor"));
+        while(results.next()){
+            actors.add(new Actor(results));
+        }
+        return actors;
+    }
 }

@@ -1,5 +1,6 @@
 package Query;
 
+import Tables.Actor;
 import Tables.Database;
 import Tables.Movie;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -27,5 +28,15 @@ public class Retrieve {
     @RequestMapping("/allmovies")
     public List<Movie> getAllMovies() throws SQLException {
         return database.getAllMovies();
+    }
+
+    @RequestMapping("/actor")
+    public Actor getActor() throws SQLException {
+        return database.getActor("Tom Hanks", "1956-07-09");
+    }
+
+    @RequestMapping("/allactors")
+    public List<Actor> getAllActors() throws SQLException {
+        return database.getAllActors();
     }
 }
