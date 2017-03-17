@@ -1,4 +1,4 @@
-package movie.Tables;
+package Tables;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;

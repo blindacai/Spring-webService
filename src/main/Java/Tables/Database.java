@@ -3,7 +3,11 @@ package Tables;
 import Utils.Query;
 import Utils.dbConnect;
 
-import java.sql.*;
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -60,5 +64,26 @@ public class Database extends dbConnect {
             actors.add(new Actor(results));
         }
         return actors;
+    }
+
+
+    public Users getUser(String name) throws SQLException {
+        String query = "select * from users where accountname = " + "'" + name + "'";
+        ResultSet result = getResult(query);
+        result.next();
+        return new Users(result);
+    }
+
+    public void postReview(String text, int rating, String user, String movieTitle, String releaseDate) {
+
+        java.util.Date date = new java.util.Date();
+        String modifiedDate = new SimpleDateFormat("yyyy-mm-dd").format(date);
+        String query = "insert into review values (" + "'" + text + "', '" + modifiedDate + "', " + rating  + ", seqR.NEXTVAL, '" + user + "', '" + movieTitle + "', '" + releaseDate +"')";
+        try {
+            statement.executeUpdate(query);
+        } catch (SQLException e) {
+            System.err.println("Error: could not insert value int table.");
+            e.printStackTrace();
+        }
     }
 }

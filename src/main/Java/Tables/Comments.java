@@ -1,4 +1,4 @@
-package movie.Tables;
+package Tables;
 
 import java.sql.Date;
 import java.sql.ResultSet;
