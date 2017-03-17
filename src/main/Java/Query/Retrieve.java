@@ -4,10 +4,7 @@ import Tables.Actor;
 import Tables.Comments;
 import Tables.Database;
 import Tables.Movie;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.sql.SQLException;
 import java.util.List;
@@ -28,6 +25,7 @@ public class Retrieve {
         return database.getAllMovies();
     }
 
+    @CrossOrigin(origins = "http://localhost:3000")
     @RequestMapping(value = "/movie", method = RequestMethod.GET)
     public Movie getMovie(@RequestParam("movie_title") String title) throws SQLException {
         return database.getMovie(title);
