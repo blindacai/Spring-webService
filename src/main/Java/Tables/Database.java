@@ -66,6 +66,18 @@ public class Database extends dbConnect {
         return actors;
     }
 
+    public List<Comments> getAllComments(String title, String releasedate) throws SQLException {
+        List<Comments> comments = new ArrayList<Comments>();
+        String query = "select * from comments " +
+                       "where title = " + Query.formatVar(title) + " " +
+                       "and releasedate = " + Query.formatVar(releasedate);
+        ResultSet results = getResult(query);
+        while(results.next()){
+            comments.add(new Comments(results));
+        }
+        return comments;
+    }
+
 
     public Users getUser(String name) throws SQLException {
         String query = "select * from users where accountname = " + "'" + name + "'";

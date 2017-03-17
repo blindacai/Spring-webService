@@ -2,6 +2,7 @@ package Tables;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.List;
 
 /**
  * Created by linda on 3/8/2017.
@@ -11,12 +12,16 @@ public class Movie {
     private String released;
     private String director;
     private String company;
+    private String comments;
+    private Database database;
 
     public Movie(ResultSet result) throws SQLException {
         this.title = result.getString("title");
         this.released = result.getDate("releasedate").toString();
         this.director = result.getString("director");
         this.company = result.getString("distributedcompany");
+
+        database = new Database();
     }
 
     public String getTitle() {
@@ -49,5 +54,9 @@ public class Movie {
 
     public void setCompany(String company) {
         this.company = company;
+    }
+
+    public List<Comments> getComments() throws SQLException {
+        return database.getAllComments(this.title, this.released);
     }
 }

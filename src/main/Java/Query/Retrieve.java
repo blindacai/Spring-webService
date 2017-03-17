@@ -1,9 +1,12 @@
 package Query;
 
 import Tables.Actor;
+import Tables.Comments;
 import Tables.Database;
 import Tables.Movie;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.sql.SQLException;
@@ -20,14 +23,19 @@ public class Retrieve {
         this.database = new Database();
     }
 
-    @RequestMapping("/movie")
-    public Movie getMovie() throws SQLException {
-        return database.getMovie("Coming Home");
-    }
-
-    @RequestMapping("/allmovies")
+    @RequestMapping(value = "/allmovies", method = RequestMethod.GET)
     public List<Movie> getAllMovies() throws SQLException {
         return database.getAllMovies();
+    }
+
+    @RequestMapping(value = "/movie", method = RequestMethod.GET)
+    public Movie getMovie(@RequestParam("movie_title") String title) throws SQLException {
+        return database.getMovie(title);
+    }
+
+    @RequestMapping("/allactors")
+    public List<Actor> getAllActors() throws SQLException {
+        return database.getAllActors();
     }
 
     @RequestMapping("/actor")
@@ -35,8 +43,9 @@ public class Retrieve {
         return database.getActor("Tom Hanks", "1956-07-09");
     }
 
-    @RequestMapping("/allactors")
-    public List<Actor> getAllActors() throws SQLException {
-        return database.getAllActors();
+    // for testing purpose
+    @RequestMapping("/allcomments")
+    public List<Comments> getAllComments() throws SQLException {
+        return database.getAllComments("Coming Home", "2014-05-16");
     }
 }
