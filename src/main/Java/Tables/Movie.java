@@ -14,6 +14,7 @@ public class Movie {
 
     public Movie(ResultSet result) throws SQLException {
         this.title = result.getString("title");
+        this.released = result.getDate("releasedate").toString();
         this.director = result.getString("director");
         this.company = result.getString("distributedcompany");
     }

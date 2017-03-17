@@ -7,4 +7,8 @@ public class Query {
     public static String selectALL(String tablename){
         return "select * from " + tablename;
     }
+
+    public static String formatVar(String var){
+        return "'" + var + "'";
+    }
 }

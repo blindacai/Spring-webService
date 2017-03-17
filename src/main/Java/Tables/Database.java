@@ -3,10 +3,7 @@ package Tables;
 import Utils.Query;
 import Utils.dbConnect;
 
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -32,10 +29,19 @@ public class Database extends dbConnect {
     }
 
     public Movie getMovie(String title) throws SQLException {
-        String query = "select * from movie where title = " + "'" + title + "'";
+        String query = "select * from movie where title = " + Query.formatVar(title);
         ResultSet result = getResult(query);
         result.next();
         return new Movie(result);
+    }
+
+    public Actor getActor(String name, String birthday) throws SQLException {
+        String query = "select * from actor " +
+                       "where name = " + Query.formatVar(name) + " " +
+                       "and birthday = " + Query.formatVar(birthday);
+        ResultSet result = getResult(query);
+        result.next();
+        return new Actor(result);
     }
 
     public List<Movie> getAllMovies() throws SQLException {
