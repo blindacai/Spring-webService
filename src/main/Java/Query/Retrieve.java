@@ -41,6 +41,11 @@ public class Retrieve {
         return database.getActor("Tom Hanks", "1956-07-09");
     }
 
+    @RequestMapping("/ratedbyall")
+    public List<Movie> getRatedByAll() throws SQLException {
+        return database.getRatedByAll();
+    }
+
     // for testing purpose
     @RequestMapping("/allcomments")
     public List<Comments> getAllComments() throws SQLException {

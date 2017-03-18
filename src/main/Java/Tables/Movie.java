@@ -15,13 +15,13 @@ public class Movie {
     private String comments;
     private Database database;
 
-    public Movie(ResultSet result) throws SQLException {
+    public Movie(ResultSet result, Database database) throws SQLException {
         this.title = result.getString("title");
         this.released = result.getDate("releasedate").toString();
         this.director = result.getString("director");
         this.company = result.getString("distributedcompany");
 
-        database = new Database();
+        this.database = database;
     }
 
     public String getTitle() {
