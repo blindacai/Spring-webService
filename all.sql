@@ -42,8 +42,8 @@ create table favourite (
 	title varchar(50) not null, 
 	releasedate varchar(10) not null, 
 	accountname varchar(25) not null, 
-	foreign key (title, releasedate) references movie, 
-	foreign key (accountname) references users, 
+	foreign key (title, releasedate) references movie on delete cascade, 
+	foreign key (accountname) references users on delete cascade, 
 	PRIMARY KEY (title, releasedate, accountname) 
 );
 create table acts_in ( 
@@ -51,8 +51,8 @@ create table acts_in (
 	releasedate varchar(10) not null, 
 	name varchar(40) not null, 
 	birthday varchar(10) not null, 
-	foreign key (title, releasedate) references movie, 
-	foreign key (name, birthday) references actor, 
+	foreign key (title, releasedate) references movie on delete cascade, 
+	foreign key (name, birthday) references actor on delete cascade, 
 	PRIMARY KEY (title, releasedate, name, birthday) 
 );
 create table comments ( 
@@ -63,8 +63,8 @@ create table comments (
 	accountname varchar(25) not null, 
 	title varchar(50) not null, 
 	releasedate varchar(10) not null, 
-	foreign key (accountname) references users, 
-	foreign key (title, releasedate) references movie 
+	foreign key (accountname) references users on delete cascade, 
+	foreign key (title, releasedate) references movie on delete cascade 
 );
 create table review ( 
 	text varchar(800), 
@@ -74,14 +74,14 @@ create table review (
 	accountname varchar(25) not null, 
 	title varchar(50) not null, 
 	releasedate varchar(10) not null, 
-	foreign key (accountname) references users, 
-	foreign key (title, releasedate) references movie 
+	foreign key (accountname) references users on delete cascade, 
+	foreign key (title, releasedate) references movie on delete cascade 
 );
 create table upvote ( 
 	accountname varchar(25) not null, 
 	id integer not null, 
-	foreign key (accountname) references users, 
-	foreign key (id) references comments, 
+	foreign key (accountname) references users on delete cascade, 
+	foreign key (id) references comments on delete cascade, 
 	PRIMARY KEY (accountname, ID) 
 );
 
