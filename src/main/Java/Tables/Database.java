@@ -74,15 +74,30 @@ public class Database extends dbConnect {
         return new Users(result);
     }
 
+
+    // Update Query: insert a new review
     public void postReview(String text, int rating, String user, String movieTitle, String releaseDate) {
 
         java.util.Date date = new java.util.Date();
-        String modifiedDate = new SimpleDateFormat("yyyy-mm-dd").format(date);
+        String modifiedDate = new SimpleDateFormat("yyyy-MM-dd").format(date);
         String query = "insert into review values (" + "'" + text + "', '" + modifiedDate + "', " + rating  + ", seqR.NEXTVAL, '" + user + "', '" + movieTitle + "', '" + releaseDate +"')";
         try {
             statement.executeUpdate(query);
+            connection.commit();
         } catch (SQLException e) {
-            System.err.println("Error: could not insert value int table.");
+            System.err.println("Error: could not insert value into table.");
+            e.printStackTrace();
+        }
+    }
+
+    // Delete Query: delete a movie
+    public void deleteMovie(String title, String releasedate) {
+        String query = "delete from movie where title ='" + title + "' and releasedate = '" + releasedate + "'";
+        try {
+            statement.executeUpdate(query);
+            connection.commit();
+        } catch (SQLException e) {
+            System.err.println("Error: could not remove value from table.");
             e.printStackTrace();
         }
     }

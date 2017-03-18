@@ -8,6 +8,8 @@ import java.sql.SQLException;
 public class TestMain {
     public static void main(String[] args) throws SQLException {
         Database database = new Database();
+
+
         Movie movie = database.getMovie("Coming Home");
         System.out.println(movie.getDirector());
         System.out.println(movie.getCompany());
@@ -17,6 +19,7 @@ public class TestMain {
         System.out.println(user.getEmail());
         System.out.println(user.getBirthday());
 
-        database.postReview("Good", 1, "foobar", "Harry Potter", "2001-11-04");
+        //database.postReview("Good", 1, "foobar", "Harry Potter", "2001-11-04");
+        //database.deleteMovie("Harry Potter", "2001-11-04");
     }
 }
