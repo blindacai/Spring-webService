@@ -74,7 +74,6 @@ public class Database extends dbConnect {
         return new Users(result);
     }
 
-
     // Update Query: insert a new review
     public void postReview(String text, int rating, String user, String movieTitle, String releaseDate) {
 
@@ -116,8 +115,9 @@ public class Database extends dbConnect {
         ResultSet result = getResult(query);
         result.next();
 
-        return new Actor(result);
-
+        Actor a = new Actor(result);
+        a.setMovieCount(result.getInt("mcount"));
+        return a;
     }
 
 }

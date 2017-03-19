@@ -26,5 +26,6 @@ public class TestMain {
         System.out.println(actor.getName());
         System.out.println(actor.getBirthday());
         System.out.println(actor.getNationality());
+        System.out.println(actor.getMovieCount());
     }
 }
