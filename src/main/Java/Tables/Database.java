@@ -40,12 +40,18 @@ public class Database extends dbConnect {
     }
 
     public Actor getActor(String name, String birthday) throws SQLException {
-        String query = "select * from actor " +
-                       "where name = " + Query.formatVar(name) + " " +
-                       "and birthday = " + Query.formatVar(birthday);
+
+        String query = "select * from (select a.name, a.birthday, a.nationality, count(t.title) as MovieCount" +
+                        "from actor a, acts_in t where a.name = t.name and a.birthday = t.birthday + " +
+                        "group by a.name, a.birthday) temp" +
+                        "where temp.name = " + Query.formatVar(name) + " " +
+                        "and temp.birthday = " + Query.formatVar(birthday);
+
         ResultSet result = getResult(query);
+        Actor singleActor = new Actor(result);
+        singleActor.setMovieCount(result.getInt("MovieCount"));
         result.next();
-        return new Actor(result);
+        return singleActor;
     }
 
     public List<Movie> getAllMovies() throws SQLException {
@@ -86,4 +92,5 @@ public class Database extends dbConnect {
             e.printStackTrace();
         }
     }
+
 }
