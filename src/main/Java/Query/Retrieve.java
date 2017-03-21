@@ -3,6 +3,7 @@ package Query;
 import Tables.Actor;
 import Tables.Database;
 import Tables.Movie;
+import Tables.MovieCount;
 import org.springframework.web.bind.annotation.*;
 
 import java.sql.SQLException;
@@ -42,6 +43,13 @@ public class Retrieve {
     @RequestMapping("/allactors")
     public List<Actor> getAllActors() throws SQLException {
         return database.getAllActors();
+    }
+
+    // simple aggregation
+    @CrossOrigin(origins = "http://localhost:3000")
+    @RequestMapping(value = "/moviecount", method = RequestMethod.GET)
+    public MovieCount getMovieCount(@RequestParam(value="name") String name, @RequestParam(value="birthday") String birthday) throws SQLException {
+        return database.getMovieCount(name, birthday);
     }
 
     // nested aggregation
