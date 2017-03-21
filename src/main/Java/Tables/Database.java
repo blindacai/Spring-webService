@@ -74,6 +74,15 @@ public class Database extends dbConnect {
         return new Users(result);
     }
 
+    // Simple Aggregation
+    public MovieCount getMovieCount(String actor, String birthday) throws SQLException {
+        String query = "select count(title) as moviecount from acts_in a where a.name = 'QueryString1' and a.birthday = 'QueryString2';";
+        ResultSet result = getResult(query);
+        result.next();
+
+        return new MovieCount(result);
+    }
+
     // Update Query: insert a new review
     public void postReview(String text, int rating, String user, String movieTitle, String releaseDate) {
 
