@@ -8,9 +8,6 @@ public class Actor {
     private String birthday;
     private String nationality;
 
-    private int moviecount;
-
-
     public Actor(ResultSet result) throws SQLException {
         this.name = result.getString("name");
         this.birthday = result.getString("birthday");
@@ -39,13 +36,5 @@ public class Actor {
 
     public void setNationality(String nationality) {
         this.nationality = nationality;
-    }
-
-    public int getMovieCount() {
-        return moviecount;
-    }
-
-    public void setMovieCount(int moviecount) {
-        this.moviecount = moviecount;
     }
 }

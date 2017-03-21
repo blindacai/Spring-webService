@@ -104,7 +104,7 @@ public class Database extends dbConnect {
     // Nested Aggregation: get the actor who has acted in the most movies
     public Actor getActorWithMostMovies() throws SQLException {
 
-        String query = "SELECT temp.name, temp.birthday, temp.nationality, temp.mcount " +
+        String query = "SELECT temp.name, temp.birthday, temp.nationality " +
                 "FROM (SELECT a.name, a.birthday, a.nationality, count(i.title) AS mcount " +
                 "FROM actor a, acts_in i " +
                 "where a.name = i.name and a.birthday = i.birthday " +
@@ -115,9 +115,7 @@ public class Database extends dbConnect {
         ResultSet result = getResult(query);
         result.next();
 
-        Actor a = new Actor(result);
-        a.setMovieCount(result.getInt("mcount"));
-        return a;
+        return new Actor(result);
     }
 
 }
