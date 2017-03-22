@@ -22,12 +22,22 @@ public class Retrieve {
 
     @RequestMapping(value = "/allmovies", method = RequestMethod.GET)
     public List<Movie> getAllMovies() throws SQLException {
+
         return database.getAllMovies();
     }
 
+//    @CrossOrigin(origins = "http://localhost:3000")
+//    @RequestMapping(value = "/movie", method = RequestMethod.GET)
+//    public Movie getMovie(@RequestParam("title") String title) throws SQLException {
+//        System.out.println("hahaha");
+//        return database.getMovie(title);
+//    }
+
     @CrossOrigin(origins = "http://localhost:3000")
-    @RequestMapping(value = "/movie", method = RequestMethod.GET)
-    public Movie getMovie(@RequestParam("movie_title") String title) throws SQLException {
+    @RequestMapping(value = "/movie/{title}", method = RequestMethod.GET)
+    public Movie getMovie(@PathVariable("title") String title) throws SQLException {
+        System.out.println("hahaha");
+        System.out.println(title);
         return database.getMovie(title);
     }
 
