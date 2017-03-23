@@ -112,4 +112,13 @@ public class Database extends dbConnect {
             e.printStackTrace();
         }
     }
+
+    // Simple Aggregation
+    public MovieCount getMovieCount(String actor, String birthday) throws SQLException {
+        String query = "select count(title) as moviecount from acts_in a where a.name = 'QueryString1' and a.birthday = 'QueryString2';";
+        ResultSet result = getResult(query);
+        result.next();
+
+        return new MovieCount(result);
+    }
 }
