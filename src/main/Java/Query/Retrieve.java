@@ -57,6 +57,14 @@ public class Retrieve {
         return database.getMovieCount(name, birthday);
     }
 
+    // simple aggregation
+    @CrossOrigin(origins = "http://localhost:3000")
+    @RequestMapping(value = "/moviecount/{name}/{birthday}/{val}", method = RequestMethod.GET)
+    public MovieCount getMovieCount(@PathVariable(value="name") String name, @PathVariable(value="birthday") String birthday, @PathVariable(value="val") String val) throws SQLException {
+        System.out.println(val);
+        return database.getMovieCount(name, birthday);
+    }
+
     // nested aggregation 1
     @CrossOrigin(origins = "http://localhost:3000")
     @RequestMapping(value = "/mostmovies", method = RequestMethod.GET)

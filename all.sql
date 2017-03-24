@@ -115,6 +115,7 @@ insert into favourite values('Saving Private Ryan', '1998-07-24', 'foobar');
 insert into favourite values('Remember the Titans', '2000-09-23', 'helloworld');
 -- insert into acts_in
 insert into acts_in values('Harry Potter', '2001-11-04', 'Daniel Radcliffe', '1989-07-23');
+insert into acts_in values('Coming Home', '2014-05-16', 'Daniel Radcliffe', '1989-07-23');
 insert into acts_in values('Coming Home', '2014-05-16', 'Gong Li', '1965-12-31');
 insert into acts_in values('Saving Private Ryan', '1998-07-24', 'Edward Burns', '1968-01-29');
 insert into acts_in values('Mona Lisa Smile', '2003-12-19', 'Julia Roberts', '1967-10-28');
