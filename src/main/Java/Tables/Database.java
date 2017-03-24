@@ -115,7 +115,7 @@ public class Database extends dbConnect {
 
     // Simple Aggregation
     public MovieCount getMovieCount(String actor, String birthday) throws SQLException {
-        String query = "select count(title) as moviecount from acts_in a where a.name = 'QueryString1' and a.birthday = 'QueryString2';";
+        String query = "select count(title) as moviecount from acts_in a where a.name = '" + actor + "' and a.birthday = '" + birthday + "'";
         ResultSet result = getResult(query);
         result.next();
 

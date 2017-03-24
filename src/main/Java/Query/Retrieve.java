@@ -40,8 +40,6 @@ public class Retrieve {
     @CrossOrigin(origins = "http://localhost:3000")
     @RequestMapping(value = "/actor/{name}/{birthday}")
     public Actor getActor(@PathVariable("name") String name, @PathVariable("birthday") String birthday) throws SQLException {
-        System.out.println(name);
-        System.out.println(birthday);
         return database.getActor(name, birthday);
 
     }
@@ -56,7 +54,6 @@ public class Retrieve {
     @CrossOrigin(origins = "http://localhost:3000")
     @RequestMapping(value = "/moviecount/{name}/{birthday}", method = RequestMethod.GET)
     public MovieCount getMovieCount(@PathVariable("name") String name, @PathVariable("birthday") String birthday) throws SQLException {
-        System.out.println("We are in moviecount");
         return database.getMovieCount(name,birthday);
     }
 
