@@ -54,6 +54,7 @@ public class Retrieve {
     @CrossOrigin(origins = "http://localhost:3000")
     @RequestMapping(value = "/moviecount/{name}/{birthday}", method = RequestMethod.GET)
     public MovieCount getMovieCount(@PathVariable(value="name") String name, @PathVariable(value="birthday") String birthday) throws SQLException {
+        System.out.println("BOOOOO");
         return database.getMovieCount(name, birthday);
     }
 
