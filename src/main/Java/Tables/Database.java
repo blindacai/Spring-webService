@@ -32,8 +32,8 @@ public class Database extends dbConnect {
         return this.getStatement().executeQuery(query);
     }
 
-    public Movie getMovie(String title) throws SQLException {
-        String query = "select * from movie where title = " + Query.formatVar(title);
+    public Movie getMovie(String title, String releasedate) throws SQLException {
+        String query = "select * from movie where title = " + Query.formatVar(title) + " and releasedate = " + Query.formatVar(releasedate);
         ResultSet result = getResult(query);
         result.next();
         return new Movie(result);
@@ -76,7 +76,7 @@ public class Database extends dbConnect {
 
     // Simple Aggregation
     public MovieCount getMovieCount(String actor, String birthday) throws SQLException {
-        String query = "select count(title) as moviecount from acts_in a where a.name = 'QueryString1' and a.birthday = 'QueryString2';";
+        String query = "select count(title) as moviecount from acts_in a where a.name = '" + actor + "' and a.birthday = '" + birthday + "'";
         ResultSet result = getResult(query);
         result.next();
 
@@ -110,7 +110,7 @@ public class Database extends dbConnect {
         }
     }
 
-    // Nested Aggregation: get the actor who has acted in the most movies
+    // Nested Aggregation1: get the actor who has acted in the most movies
     public Actor getActorWithMostMovies() throws SQLException {
 
         String query = "SELECT temp.name, temp.birthday, temp.nationality " +
@@ -119,6 +119,23 @@ public class Database extends dbConnect {
                 "where a.name = i.name and a.birthday = i.birthday " +
                 "GROUP BY a.name, a.birthday, a.nationality) temp " +
                 "WHERE temp.mcount >= all (SELECT count(i.title) FROM actor a, acts_in i " +
+                "where a.name = i.name and a.birthday = i.birthday " +
+                "GROUP BY a.name, a.birthday)";
+        ResultSet result = getResult(query);
+        result.next();
+
+        return new Actor(result);
+    }
+
+    // Nested Aggregation2: get the actor who has acted in the least movies
+    public Actor getActorWithLeastMovies() throws SQLException {
+
+        String query = "SELECT temp.name, temp.birthday, temp.nationality " +
+                "FROM (SELECT a.name, a.birthday, a.nationality, count(i.title) AS mcount " +
+                "FROM actor a, acts_in i " +
+                "where a.name = i.name and a.birthday = i.birthday " +
+                "GROUP BY a.name, a.birthday, a.nationality) temp " +
+                "WHERE temp.mcount <= all (SELECT count(i.title) FROM actor a, acts_in i " +
                 "where a.name = i.name and a.birthday = i.birthday " +
                 "GROUP BY a.name, a.birthday)";
         ResultSet result = getResult(query);

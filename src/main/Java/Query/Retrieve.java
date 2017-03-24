@@ -20,43 +20,55 @@ public class Retrieve {
         this.database = new Database();
     }
 
+//    @CrossOrigin(origins = "http://localhost:3000")
+//    @RequestMapping("/movie")
+//    public Movie getMovie() throws SQLException {
+//        return database.getMovie("Coming Home");
+//    }
+
     @CrossOrigin(origins = "http://localhost:3000")
-    @RequestMapping("/movie")
-    public Movie getMovie() throws SQLException {
-        return database.getMovie("Coming Home");
+    @RequestMapping(value = "/movie/{title}/{releasedate}", method = RequestMethod.GET)
+    public Movie getMovie(@PathVariable("title") String title, @PathVariable("releasedate") String releasedate) throws SQLException {
+        return database.getMovie(title, releasedate);
     }
 
     @CrossOrigin(origins = "http://localhost:3000")
-    @RequestMapping("/allmovies")
+    @RequestMapping(value = "/allmovies", method = RequestMethod.GET)
     public List<Movie> getAllMovies() throws SQLException {
         return database.getAllMovies();
     }
 
     @CrossOrigin(origins = "http://localhost:3000")
-    @RequestMapping("/actor")
-    public Actor getActor(@RequestParam(value="name") String name, @RequestParam(value="birthday") String birthday) throws SQLException {
+    @RequestMapping(value = "/actor/{name}/{birthday}", method = RequestMethod.GET)
+    public Actor getActor(@PathVariable(value="name") String name, @PathVariable(value="birthday") String birthday) throws SQLException {
         return database.getActor(name, birthday);
-        //return database.getActor("Tom Hanks", "1956-07-09");
     }
 
     @CrossOrigin(origins = "http://localhost:3000")
-    @RequestMapping("/allactors")
+    @RequestMapping(value = "/allactors", method = RequestMethod.GET)
     public List<Actor> getAllActors() throws SQLException {
         return database.getAllActors();
     }
 
     // simple aggregation
     @CrossOrigin(origins = "http://localhost:3000")
-    @RequestMapping(value = "/moviecount", method = RequestMethod.GET)
-    public MovieCount getMovieCount(@RequestParam(value="name") String name, @RequestParam(value="birthday") String birthday) throws SQLException {
+    @RequestMapping(value = "/moviecount/{name}/{birthday}", method = RequestMethod.GET)
+    public MovieCount getMovieCount(@PathVariable(value="name") String name, @PathVariable(value="birthday") String birthday) throws SQLException {
         return database.getMovieCount(name, birthday);
     }
 
-    // nested aggregation
+    // nested aggregation 1
     @CrossOrigin(origins = "http://localhost:3000")
     @RequestMapping(value = "/mostmovies", method = RequestMethod.GET)
     public Actor getActorWithMostMovies() throws SQLException {
         return database.getActorWithMostMovies();
+    }
+
+    // nested aggregation 2
+    @CrossOrigin(origins = "http://localhost:3000")
+    @RequestMapping(value = "/leastmovies", method = RequestMethod.GET)
+    public Actor getActorWithLeastMovies() throws SQLException {
+        return database.getActorWithLeastMovies();
     }
 
     // posting a review
