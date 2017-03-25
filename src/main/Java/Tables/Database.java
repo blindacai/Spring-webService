@@ -33,7 +33,8 @@ public class Database extends dbConnect {
     }
 
     public Movie getMovie(String title, String releasedate) throws SQLException {
-        String query = "select * from movie where title = " + Query.formatVar(title) + " and releasedate = " + Query.formatVar(releasedate);
+        String query = "select * from movie where title = " + Query.formatVar(title) +
+                " and releasedate = " + Query.formatVar(releasedate);
         ResultSet result = getResult(query);
         result.next();
         return new Movie(result);
@@ -51,6 +52,63 @@ public class Database extends dbConnect {
     public List<Movie> getAllMovies() throws SQLException {
         List<Movie> movies = new ArrayList<Movie>();
         ResultSet results = getResult(Query.selectALL("movie"));
+        while(results.next()){
+            movies.add(new Movie(results));
+        }
+        return movies;
+    }
+
+    public String getMovieConditions(int var){
+        String userinput = "";
+
+        switch (var) {
+            case 1:
+                userinput = "director";
+                break;
+            case 2:
+                userinput = "distributedcompany";
+                break;
+            case 3:
+                userinput = "director, distributedcompany";
+                break;
+            case 4:
+                userinput = "2%";
+                break;
+            case 5:
+                userinput = "1%";
+                break;
+            case 6:
+                userinput = "%";
+                break;
+        }
+        return userinput;
+    }
+
+    public List<Movie> getAllMovies(int var1) throws SQLException {
+        List<Movie> movies = new ArrayList<Movie>();
+        String userinput = getMovieConditions(var1);
+        String query;
+
+        if (var1 <= 3) {
+            query = "select title, releasedate, " + Query.formatVar(userinput) + " from movie";
+        }
+        else query = "select * from movie where releasedate like " + Query.formatVar(userinput);
+
+        ResultSet results = getResult(query);
+        while(results.next()){
+            movies.add(new Movie(results));
+        }
+        return movies;
+    }
+
+    public List<Movie> getAllMovies(int var1, int var2) throws SQLException {
+        String attributes = getMovieConditions(var1);
+        String conditions = getMovieConditions(var2);
+        String query = "select title, releasedate, " + Query.formatVar(attributes) +
+                " from movie where releasedate like " + Query.formatVar(conditions);
+
+        List<Movie> movies = new ArrayList<Movie>();
+        ResultSet results = getResult(query);
         while(results.next()){
             movies.add(new Movie(results));
         }
@@ -76,7 +134,8 @@ public class Database extends dbConnect {
 
     // Simple Aggregation
     public MovieCount getMovieCount(String actor, String birthday) throws SQLException {
-        String query = "select count(title) as moviecount from acts_in a where a.name = '" + actor + "' and a.birthday = '" + birthday + "'";
+        String query = "select count(title) as moviecount from acts_in a where a.name = '" + actor +
+                "' and a.birthday = '" + birthday + "'";
         ResultSet result = getResult(query);
         result.next();
 
@@ -84,30 +143,21 @@ public class Database extends dbConnect {
     }
 
     // Update Query: insert a new review
-    public void postReview(String text, int rating, String user, String movieTitle, String releaseDate) {
+    public void postReview(String text, int rating, String user, String movieTitle, String releaseDate) throws SQLException{
 
         java.util.Date date = new java.util.Date();
         String modifiedDate = new SimpleDateFormat("yyyy-MM-dd").format(date);
-        String query = "insert into review values (" + "'" + text + "', '" + modifiedDate + "', " + rating  + ", seqR.NEXTVAL, '" + user + "', '" + movieTitle + "', '" + releaseDate +"')";
-        try {
-            statement.executeUpdate(query);
-            connection.commit();
-        } catch (SQLException e) {
-            System.err.println("Error: could not insert value into table.");
-            e.printStackTrace();
-        }
+        String query = "insert into review values (" + "'" + text + "', '" + modifiedDate + "', " + rating  +
+                ", seqR.NEXTVAL, '" + user + "', '" + movieTitle + "', '" + releaseDate +"')";
+        statement.executeUpdate(query);
+        connection.commit();
     }
 
     // Delete Query: delete a movie
-    public void deleteMovie(String title, String releasedate) {
+    public void deleteMovie(String title, String releasedate) throws SQLException {
         String query = "delete from movie where title ='" + title + "' and releasedate = '" + releasedate + "'";
-        try {
-            statement.executeUpdate(query);
-            connection.commit();
-        } catch (SQLException e) {
-            System.err.println("Error: could not remove value from table.");
-            e.printStackTrace();
-        }
+        statement.executeUpdate(query);
+        connection.commit();
     }
 
     // Nested Aggregation1: get the actor who has acted in the most movies

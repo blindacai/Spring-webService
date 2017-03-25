@@ -20,15 +20,10 @@ public class Retrieve {
         this.database = new Database();
     }
 
-//    @CrossOrigin(origins = "http://localhost:3000")
-//    @RequestMapping("/movie")
-//    public Movie getMovie() throws SQLException {
-//        return database.getMovie("Coming Home");
-//    }
-
     @CrossOrigin(origins = "http://localhost:3000")
     @RequestMapping(value = "/movie/{title}/{releasedate}", method = RequestMethod.GET)
-    public Movie getMovie(@PathVariable("title") String title, @PathVariable("releasedate") String releasedate) throws SQLException {
+    public Movie getMovie(@PathVariable("title") String title,
+                          @PathVariable("releasedate") String releasedate) throws SQLException {
         return database.getMovie(title, releasedate);
     }
 
@@ -39,8 +34,22 @@ public class Retrieve {
     }
 
     @CrossOrigin(origins = "http://localhost:3000")
+    @RequestMapping(value = "/allmovies/{var1}", method = RequestMethod.GET)
+    public List<Movie> getAllMovies(@PathVariable("var1") int var1) throws SQLException {
+        return database.getAllMovies(var1);
+    }
+
+    @CrossOrigin(origins = "http://localhost:3000")
+    @RequestMapping(value = "/allmovies/{var1}/{var2}", method = RequestMethod.GET)
+    public List<Movie> getAllMovies(@PathVariable("var1") int var1,
+                                    @PathVariable("var2") int var2) throws SQLException {
+        return database.getAllMovies(var1, var2);
+    }
+
+    @CrossOrigin(origins = "http://localhost:3000")
     @RequestMapping(value = "/actor/{name}/{birthday}", method = RequestMethod.GET)
-    public Actor getActor(@PathVariable(value="name") String name, @PathVariable(value="birthday") String birthday) throws SQLException {
+    public Actor getActor(@PathVariable(value="name") String name,
+                          @PathVariable(value="birthday") String birthday) throws SQLException {
         return database.getActor(name, birthday);
     }
 
@@ -53,16 +62,8 @@ public class Retrieve {
     // simple aggregation
     @CrossOrigin(origins = "http://localhost:3000")
     @RequestMapping(value = "/moviecount/{name}/{birthday}", method = RequestMethod.GET)
-    public MovieCount getMovieCount(@PathVariable(value="name") String name, @PathVariable(value="birthday") String birthday) throws SQLException {
-        System.out.println("BOOOOO");
-        return database.getMovieCount(name, birthday);
-    }
-
-    // simple aggregation
-    @CrossOrigin(origins = "http://localhost:3000")
-    @RequestMapping(value = "/moviecount/{name}/{birthday}/{val}", method = RequestMethod.GET)
-    public MovieCount getMovieCount(@PathVariable(value="name") String name, @PathVariable(value="birthday") String birthday, @PathVariable(value="val") String val) throws SQLException {
-        System.out.println(val);
+    public MovieCount getMovieCount(@PathVariable(value="name") String name,
+                                    @PathVariable(value="birthday") String birthday) throws SQLException {
         return database.getMovieCount(name, birthday);
     }
 
@@ -83,14 +84,17 @@ public class Retrieve {
     // posting a review
     @CrossOrigin(origins = "http://localhost:3000")
     @RequestMapping(value = "/postreview", method = RequestMethod.POST)
-    public void insertReview(@RequestParam(value="text") String text, @RequestParam(value="rating") int rating, @RequestParam(value="user") String user, @RequestParam(value="movietitle") String title, @RequestParam(value="releasedate") String releasedate) {
+    public void insertReview(@RequestParam(value="text") String text, @RequestParam(value="rating") int rating,
+                             @RequestParam(value="user") String user, @RequestParam(value="movietitle") String title,
+                             @RequestParam(value="releasedate") String releasedate) throws SQLException {
         database.postReview(text, rating, user, title, releasedate);
     }
 
     // deleting a movie
     @CrossOrigin(origins = "http://localhost:3000")
     @RequestMapping(value = "/deletemovie", method = RequestMethod.DELETE)
-    public void deleteMovie(@RequestParam(value="title") String title, @RequestParam(value="releasedate") String releasedate) {
+    public void deleteMovie(@RequestParam(value="title") String title,
+                            @RequestParam(value="releasedate") String releasedate) throws SQLException {
         database.deleteMovie(title, releasedate);
     }
 
