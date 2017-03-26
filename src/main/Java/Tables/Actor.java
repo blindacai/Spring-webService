@@ -1,8 +1,11 @@
 package Tables;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
+
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class Actor {
     private String name;
     private String birthday;

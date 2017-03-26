@@ -147,6 +147,7 @@ public class Database extends dbConnect {
         return new MovieCount(result);
     }
 
+
 //    // Update Query: insert a new review
 //    public void postReview(String text, int rating, String user, String movieTitle, String releaseDate) throws SQLException{
 //
@@ -196,6 +197,7 @@ public class Database extends dbConnect {
         ResultSet result = getResult(query);
         result.next();
 
+        System.out.println("TESST!");
         return new Actor(result);
     }
 
@@ -214,5 +216,19 @@ public class Database extends dbConnect {
         result.next();
 
         return new Actor(result);
+    }
+
+    public List<Movie> getRatedByAll() throws SQLException {
+        List<Movie> movies = new ArrayList<Movie>();
+        String query =  "select title, releasedate from movie m " +
+                "where not exists((select u1.accountname from users u1) " +
+                "minus (select u2.accountname from users u2, review r " +
+                "where r.rating = 5 and u2.accountname = r.accountname and r.title = m.title and r.releasedate = m.releasedate))";
+        ResultSet results = getResult(query);
+
+        while(results.next()){
+            movies.add(new Movie(results));
+        }
+        return movies;
     }
 }

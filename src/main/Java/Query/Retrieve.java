@@ -98,4 +98,10 @@ public class Retrieve {
         database.deleteMovie(title, releasedate);
     }
 
+    @CrossOrigin(origins = "http://localhost:3000")
+    @RequestMapping(value = "/ratedbyall", method = RequestMethod.GET)
+    public List<Movie> getRatedByAll() throws SQLException {
+        return database.getRatedByAll();
+    }
+
 }
