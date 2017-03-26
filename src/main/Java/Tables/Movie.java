@@ -1,11 +1,14 @@
 package Tables;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
+
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
 /**
  * Created by linda on 3/8/2017.
  */
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class Movie {
     private String title;
     private String released;
