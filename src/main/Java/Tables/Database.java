@@ -3,10 +3,7 @@ package Tables;
 import Utils.Query;
 import Utils.dbConnect;
 
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.sql.*;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
@@ -142,14 +139,31 @@ public class Database extends dbConnect {
         return new MovieCount(result);
     }
 
+//    // Update Query: insert a new review
+//    public void postReview(String text, int rating, String user, String movieTitle, String releaseDate) throws SQLException{
+//
+//        java.util.Date date = new java.util.Date();
+//        String modifiedDate = new SimpleDateFormat("yyyy-MM-dd").format(date);
+//        String query = "insert into review values (" + "'" + text + "', '" + modifiedDate + "', " + rating  +
+//                ", seqR.NEXTVAL, '" + user + "', '" + movieTitle + "', '" + releaseDate +"')";
+//        statement.executeUpdate(query);
+//        connection.commit();
+//    }
+
     // Update Query: insert a new review
     public void postReview(String text, int rating, String user, String movieTitle, String releaseDate) throws SQLException{
 
         java.util.Date date = new java.util.Date();
         String modifiedDate = new SimpleDateFormat("yyyy-MM-dd").format(date);
-        String query = "insert into review values (" + "'" + text + "', '" + modifiedDate + "', " + rating  +
-                ", seqR.NEXTVAL, '" + user + "', '" + movieTitle + "', '" + releaseDate +"')";
-        statement.executeUpdate(query);
+        PreparedStatement ps = connection.prepareStatement("insert into review (text, postdate, rating, id, accountname, title, releasedate) " +
+                "VALUES (?, ?, ?, seqR.NEXTVAL, ?, ?, ?)");
+        ps.setString(1, text);
+        ps.setString(2, modifiedDate);
+        ps.setInt(3, rating);
+        ps.setString(4, user);
+        ps.setString(5, movieTitle);
+        ps.setString(6, releaseDate);
+        ps.executeUpdate();
         connection.commit();
     }
 
