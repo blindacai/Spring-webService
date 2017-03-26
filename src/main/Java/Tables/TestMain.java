@@ -21,9 +21,9 @@ public class TestMain {
         //database.postReview("Good", 1, "foobar", "Harry Potter", "2001-11-04");
         //database.deleteMovie("Harry Potter", "2001-11-04");
 
-        Actor actor = database.getActorWithMostMovies();
-        System.out.println(actor.getName());
-        System.out.println(actor.getBirthday());
-        System.out.println(actor.getNationality());
+        //Actor actor = database.getActorWithMostMovies();
+//        System.out.println(actor.getName());
+//        System.out.println(actor.getBirthday());
+//        System.out.println(actor.getNationality());
     }
 }

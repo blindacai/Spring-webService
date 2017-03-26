@@ -70,14 +70,14 @@ public class Retrieve {
     // nested aggregation 1
     @CrossOrigin(origins = "http://localhost:3000")
     @RequestMapping(value = "/mostmovies", method = RequestMethod.GET)
-    public Actor getActorWithMostMovies() throws SQLException {
+    public List<Actor> getActorWithMostMovies() throws SQLException {
         return database.getActorWithMostMovies();
     }
 
     // nested aggregation 2
     @CrossOrigin(origins = "http://localhost:3000")
     @RequestMapping(value = "/leastmovies", method = RequestMethod.GET)
-    public Actor getActorWithLeastMovies() throws SQLException {
+    public List<Actor> getActorWithLeastMovies() throws SQLException {
         return database.getActorWithLeastMovies();
     }
 
