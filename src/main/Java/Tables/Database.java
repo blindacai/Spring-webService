@@ -183,8 +183,28 @@ public class Database extends dbConnect {
         connection.commit();
     }
 
+//    // Nested Aggregation1: get the actor who has acted in the most movies
+//    public Actor getActorWithMostMovies() throws SQLException {
+//
+//        String query = "SELECT temp.name, temp.birthday, temp.nationality " +
+//                "FROM (SELECT a.name, a.birthday, a.nationality, count(i.title) AS mcount " +
+//                "FROM actor a, acts_in i " +
+//                "where a.name = i.name and a.birthday = i.birthday " +
+//                "GROUP BY a.name, a.birthday, a.nationality) temp " +
+//                "WHERE temp.mcount >= all (SELECT count(i.title) FROM actor a, acts_in i " +
+//                "where a.name = i.name and a.birthday = i.birthday " +
+//                "GROUP BY a.name, a.birthday)";
+//        ResultSet result = getResult(query);
+//        result.next();
+//
+//        System.out.println("TESST!");
+//        return new Actor(result);
+//    }
+
     // Nested Aggregation1: get the actor who has acted in the most movies
-    public Actor getActorWithMostMovies() throws SQLException {
+    public List<Actor> getActorWithMostMovies() throws SQLException {
+
+        List<Actor> actors = new ArrayList<Actor>();
 
         String query = "SELECT temp.name, temp.birthday, temp.nationality " +
                 "FROM (SELECT a.name, a.birthday, a.nationality, count(i.title) AS mcount " +
@@ -194,15 +214,36 @@ public class Database extends dbConnect {
                 "WHERE temp.mcount >= all (SELECT count(i.title) FROM actor a, acts_in i " +
                 "where a.name = i.name and a.birthday = i.birthday " +
                 "GROUP BY a.name, a.birthday)";
-        ResultSet result = getResult(query);
-        result.next();
+        ResultSet results = getResult(query);
 
-        System.out.println("TESST!");
-        return new Actor(result);
+        while(results.next()){
+            actors.add(new Actor(results));
+        }
+        System.out.println("TESSSTING NESTED AGGREGATION 1");
+        return actors;
     }
 
+//    // Nested Aggregation2: get the actor who has acted in the least movies
+//    public Actor getActorWithLeastMovies() throws SQLException {
+//
+//        String query = "SELECT temp.name, temp.birthday, temp.nationality " +
+//                "FROM (SELECT a.name, a.birthday, a.nationality, count(i.title) AS mcount " +
+//                "FROM actor a, acts_in i " +
+//                "where a.name = i.name and a.birthday = i.birthday " +
+//                "GROUP BY a.name, a.birthday, a.nationality) temp " +
+//                "WHERE temp.mcount <= all (SELECT count(i.title) FROM actor a, acts_in i " +
+//                "where a.name = i.name and a.birthday = i.birthday " +
+//                "GROUP BY a.name, a.birthday)";
+//        ResultSet result = getResult(query);
+//        result.next();
+//
+//        return new Actor(result);
+//    }
+
     // Nested Aggregation2: get the actor who has acted in the least movies
-    public Actor getActorWithLeastMovies() throws SQLException {
+    public List<Actor> getActorWithLeastMovies() throws SQLException {
+
+        List<Actor> actors = new ArrayList<Actor>();
 
         String query = "SELECT temp.name, temp.birthday, temp.nationality " +
                 "FROM (SELECT a.name, a.birthday, a.nationality, count(i.title) AS mcount " +
@@ -212,10 +253,13 @@ public class Database extends dbConnect {
                 "WHERE temp.mcount <= all (SELECT count(i.title) FROM actor a, acts_in i " +
                 "where a.name = i.name and a.birthday = i.birthday " +
                 "GROUP BY a.name, a.birthday)";
-        ResultSet result = getResult(query);
-        result.next();
+        ResultSet results = getResult(query);
 
-        return new Actor(result);
+        while(results.next()){
+            actors.add(new Actor(results));
+        }
+        System.out.println("TESSSTING NESTED AGGREGATION 2");
+        return actors;
     }
 
     public List<Movie> getRatedByAll() throws SQLException {
