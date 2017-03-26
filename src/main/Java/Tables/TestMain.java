@@ -9,7 +9,6 @@ public class TestMain {
     public static void main(String[] args) throws SQLException {
         Database database = new Database();
 
-
         Movie movie = database.getMovie("Harry Potter", "2001-11-04");
         System.out.println(movie.getDirector());
         System.out.println(movie.getCompany());

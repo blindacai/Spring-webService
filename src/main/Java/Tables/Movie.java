@@ -14,9 +14,19 @@ public class Movie {
 
     public Movie(ResultSet result) throws SQLException {
         this.title = result.getString("title");
-        this.released = result.getDate("releasedate").toString();
-        this.director = result.getString("director");
-        this.company = result.getString("distributedcompany");
+        this.released = result.getString("releasedate");
+        try {
+            this.director = result.getString("director");
+        } catch (java.sql.SQLException e) {
+            this.director = null;
+        }
+        try {
+            this.company = result.getString("distributedcompany");
+        } catch (java.sql.SQLException e) {
+            this.company = null;
+        }
+//        this.director = result.getString("director");
+//        this.company = result.getString("distributedcompany");
     }
 
     public String getTitle() {

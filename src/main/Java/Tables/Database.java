@@ -3,6 +3,7 @@ package Tables;
 import Utils.Query;
 import Utils.dbConnect;
 
+import javax.xml.transform.Result;
 import java.sql.*;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -48,10 +49,13 @@ public class Database extends dbConnect {
 
     public List<Movie> getAllMovies() throws SQLException {
         List<Movie> movies = new ArrayList<Movie>();
-        ResultSet results = getResult(Query.selectALL("movie"));
+        String query = "select title, releasedate from movie";
+        ResultSet results = getResult(query);
+        //ResultSet results = getResult(Query.selectALL("movie"));
         while(results.next()){
             movies.add(new Movie(results));
         }
+        System.out.println("hahaha");
         return movies;
     }
 
@@ -82,14 +86,18 @@ public class Database extends dbConnect {
     }
 
     public List<Movie> getAllMovies(int var1) throws SQLException {
-        List<Movie> movies = new ArrayList<Movie>();
+        List<Movie> movies = new ArrayList<>();
         String userinput = getMovieConditions(var1);
-        String query;
+        String query = "";
 
         if (var1 <= 3) {
-            query = "select title, releasedate, " + Query.formatVar(userinput) + " from movie";
+            query = "select title, releasedate, " + userinput + " from movie";
         }
         else query = "select * from movie where releasedate like " + Query.formatVar(userinput);
+
+        System.out.println(var1);
+        System.out.println(userinput);
+        System.out.println(query);
 
         ResultSet results = getResult(query);
         while(results.next()){
@@ -101,7 +109,7 @@ public class Database extends dbConnect {
     public List<Movie> getAllMovies(int var1, int var2) throws SQLException {
         String attributes = getMovieConditions(var1);
         String conditions = getMovieConditions(var2);
-        String query = "select title, releasedate, " + Query.formatVar(attributes) +
+        String query = "select title, releasedate, " + attributes +
                 " from movie where releasedate like " + Query.formatVar(conditions);
 
         List<Movie> movies = new ArrayList<Movie>();
@@ -207,5 +215,4 @@ public class Database extends dbConnect {
 
         return new Actor(result);
     }
-
 }
