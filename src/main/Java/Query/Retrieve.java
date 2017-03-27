@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 
 import java.sql.SQLException;
+import java.util.LinkedHashMap;
 import java.util.List;
 
 /**
@@ -102,10 +103,20 @@ public class Retrieve {
     // posting a review
     @CrossOrigin(origins = "http://localhost:3000")
     @RequestMapping(value = "/postreview", method = RequestMethod.POST)
-    public void insertReview(@RequestBody Object object) throws SQLException {
+    public void insertReview(@RequestBody LinkedHashMap<String, Object> object) throws SQLException {
 
-        Review review = (Review) object;
-        database.postReview(review.getText(), review.getRating(), review.getAccountName(), review.getTitle(), review.getReleaseDate());
+        System.out.println("entered review");
+
+        String text = (String) object.get("text");
+        int rating = (int) object.get("rating");
+        String user = (String) object.get("accountName");
+        String title = (String) object.get("title");
+        String date = (String) object.get("releaseDate");
+        database.postReview(text, rating, user, title, date);
+
+        System.out.println("posted review");
+        //Review review = (Review) object;
+        //database.postReview(review.getText(), review.getRating(), review.getAccountName(), review.getTitle(), review.getReleaseDate());
     }
 
     // deleting a movie
