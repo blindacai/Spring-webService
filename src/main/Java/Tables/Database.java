@@ -3,7 +3,6 @@ package Tables;
 import Utils.Query;
 import Utils.dbConnect;
 
-import javax.xml.transform.Result;
 import java.sql.*;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -40,8 +39,8 @@ public class Database extends dbConnect {
 
     public Actor getActor(String name, String birthday) throws SQLException {
         String query = "select * from actor " +
-                       "where name = " + Query.formatVar(name) + " " +
-                       "and birthday = " + Query.formatVar(birthday);
+                "where name = " + Query.formatVar(name) + " " +
+                "and birthday = " + Query.formatVar(birthday);
         ResultSet result = getResult(query);
         result.next();
         return new Actor(result);
@@ -270,5 +269,4 @@ public class Database extends dbConnect {
         }
         return actors;
     }
-
 }
