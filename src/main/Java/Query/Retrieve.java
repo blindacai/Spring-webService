@@ -81,13 +81,21 @@ public class Retrieve {
         return database.getActorWithLeastMovies();
     }
 
+//    // posting a review
+//    @CrossOrigin(origins = "http://localhost:3000")
+//    @RequestMapping(value = "/postreview", method = RequestMethod.POST)
+//    public void insertReview(@RequestParam(value="text") String text, @RequestParam(value="rating") int rating,
+//                             @RequestParam(value="user") String user, @RequestParam(value="movietitle") String title,
+//                             @RequestParam(value="releasedate") String releasedate) throws SQLException {
+//        database.postReview(text, rating, user, title, releasedate);
+//    }
+
     // posting a review
     @CrossOrigin(origins = "http://localhost:3000")
     @RequestMapping(value = "/postreview", method = RequestMethod.POST)
-    public void insertReview(@RequestParam(value="text") String text, @RequestParam(value="rating") int rating,
-                             @RequestParam(value="user") String user, @RequestParam(value="movietitle") String title,
-                             @RequestParam(value="releasedate") String releasedate) throws SQLException {
-        database.postReview(text, rating, user, title, releasedate);
+    public void insertReview(@RequestBody String param) throws SQLException {
+
+        //database.postReview(text, rating, user, title, releasedate);
     }
 
     // deleting a movie
@@ -97,11 +105,4 @@ public class Retrieve {
                             @RequestParam(value="releasedate") String releasedate) throws SQLException {
         database.deleteMovie(title, releasedate);
     }
-
-    @CrossOrigin(origins = "http://localhost:3000")
-    @RequestMapping(value = "/ratedbyall", method = RequestMethod.GET)
-    public List<Movie> getRatedByAll() throws SQLException {
-        return database.getRatedByAll();
-    }
-
 }
