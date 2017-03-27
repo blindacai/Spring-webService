@@ -128,7 +128,7 @@ insert into comments values('hehehe', '1998-08-13', 1, seqC.NEXTVAL, 'helloworld
 insert into comments values('what a movie', '2016-01-10', 0, seqC.NEXTVAL, 'helloworld', 'Coming Home', '2014-05-16');
 -- insert into review
 insert into review values ('The actors did a phenomenal job.', '2000-10-30', 4, seqR.NEXTVAL, 'helloworld', 'Remember the Titans', '2000-09-23');
-insert into review values ('I didn’t think I would like a movie about football, but it was amazing!', '2001-02-16', 3, seqR.NEXTVAL, 'foobar', 'Remember the Titans', '2000-09-23');
+insert into review values ('I didnt think I would like a movie about football, but it was amazing!', '2001-02-16', 3, seqR.NEXTVAL, 'foobar', 'Remember the Titans', '2000-09-23');
 insert into review values ('Watched it in the cinema, watched again at home', '2012-08-25', 4, seqR.NEXTVAL, 'foobar', 'Saving Private Ryan', '1998-07-24');
 insert into review values ('It was ok. I liked the book better.', '2016-12-12', 2, seqR.NEXTVAL, 'deadbeef', 'Harry Potter', '2001-11-04');
 insert into review values ('This movie is amazing. I love the way how the director tells the story..', '2008-03-25', 5, seqR.NEXTVAL, 'deadbeef', 'Mona Lisa Smile', '2003-12-19');
