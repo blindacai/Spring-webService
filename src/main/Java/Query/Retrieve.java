@@ -102,8 +102,9 @@ public class Retrieve {
     // posting a review
     @CrossOrigin(origins = "http://localhost:3000")
     @RequestMapping(value = "/postreview", method = RequestMethod.POST)
-    public void insertReview(@RequestBody Review review) throws SQLException {
+    public void insertReview(@RequestBody Object object) throws SQLException {
 
+        Review review = (Review) object;
         database.postReview(review.getText(), review.getRating(), review.getAccountName(), review.getTitle(), review.getReleaseDate());
     }
 
