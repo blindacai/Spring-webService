@@ -48,6 +48,14 @@ public class Database extends dbConnect {
         return new Actor(result);
     }
 
+    public Review getReview(int id) throws SQLException {
+        String query = "select * from review " +
+                       "where id = " + id;
+        ResultSet result = getResult(query);
+        result.next();
+        return new Review(result);
+    }
+
     public List<Movie> getAllMovies() throws SQLException {
         List<Movie> movies = new ArrayList<Movie>();
         ResultSet results = getResult(Query.selectALL("movie"));
@@ -76,6 +84,18 @@ public class Database extends dbConnect {
             comments.add(new Comments(results));
         }
         return comments;
+    }
+
+    public List<Review> getAllReviews(String title, String releasedate) throws SQLException {
+        List<Review> reviews = new ArrayList<Review>();
+        String query = "select * from review " +
+                       "where title = " + Query.formatVar(title) + " " +
+                       "and releasedate = " + Query.formatVar(releasedate);
+        ResultSet results = getResult(query);
+        while(results.next()){
+            reviews.add(new Review(results));
+        }
+        return reviews;
     }
 
     public List<Movie> getRatedByAll() throws SQLException {

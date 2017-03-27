@@ -13,6 +13,7 @@ public class Movie {
     private String director;
     private String company;
     private String comments;
+    private String reviews;
     private Database database;
 
     public Movie(ResultSet result, Database database) throws SQLException {
@@ -58,5 +59,9 @@ public class Movie {
 
     public List<Comments> getComments() throws SQLException {
         return database.getAllComments(this.title, this.released);
+    }
+
+    public List<Review> getReviews() throws SQLException {
+        return database.getAllReviews(this.title, this.released);
     }
 }
