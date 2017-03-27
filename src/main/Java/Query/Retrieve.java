@@ -91,6 +91,19 @@ public class Retrieve {
         return database.getActorWithLeastMovies();
     }
 
+//    // posting a review
+//    @CrossOrigin(origins = "http://localhost:3000")
+//    @RequestMapping(value = "/postreview", method = RequestMethod.POST)
+//    public int insertReview(@RequestBody LinkedHashMap<String, Object> object) throws SQLException {
+//        String text = (String) object.get("text");
+//        int rating = (int) object.get("rating");
+//        String user = (String) object.get("accountName");
+//        String title = (String) object.get("title");
+//        String date = (String) object.get("releaseDate");
+//        database.postReview(text, rating, user, title, date);
+//        return 1;
+//    }
+
     // posting a review
     @CrossOrigin(origins = "http://localhost:3000")
     @RequestMapping(value = "/postreview", method = RequestMethod.POST)
@@ -100,8 +113,13 @@ public class Retrieve {
         String user = (String) object.get("accountName");
         String title = (String) object.get("title");
         String date = (String) object.get("releaseDate");
-        database.postReview(text, rating, user, title, date);
-        return 1;
+        try{
+            database.postReview(text, rating, user, title, date);
+            return 1;
+        } catch (SQLException e) {
+            return 0;
+        }
+
     }
 
     // deleting a movie
