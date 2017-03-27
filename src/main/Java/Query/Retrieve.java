@@ -43,14 +43,14 @@ public class Retrieve {
     }
 
     @CrossOrigin(origins = "http://localhost:3000")
-    @RequestMapping(value = "/allmovies1/{var1}", method = RequestMethod.GET)
+    @RequestMapping(value = "/allmoviesone/{var1}", method = RequestMethod.GET)
     public List<Movie> getAllMovies(@PathVariable("var1") int var1) throws SQLException {
         return database.getAllMovies(var1);
 
     }
 
     @CrossOrigin(origins = "http://localhost:3000")
-    @RequestMapping(value = "/allmovies2/{var1}/{var2}", method = RequestMethod.GET)
+    @RequestMapping(value = "/allmoviestwo/{var1}/{var2}", method = RequestMethod.GET)
     public List<Movie> getAllMovies(@PathVariable("var1") int var1,
                                     @PathVariable("var2") int var2) throws SQLException {
         return database.getAllMovies(var1, var2);
@@ -90,15 +90,6 @@ public class Retrieve {
     public List<Actor> getActorWithLeastMovies() throws SQLException {
         return database.getActorWithLeastMovies();
     }
-
-//    // posting a review
-//    @CrossOrigin(origins = "http://localhost:3000")
-//    @RequestMapping(value = "/postreview", method = RequestMethod.POST)
-//    public void insertReview(@RequestParam(value="text") String text, @RequestParam(value="rating") int rating,
-//                             @RequestParam(value="user") String user, @RequestParam(value="movietitle") String title,
-//                             @RequestParam(value="releasedate") String releasedate) throws SQLException {
-//        database.postReview(text, rating, user, title, releasedate);
-//    }
 
     // posting a review
     @CrossOrigin(origins = "http://localhost:3000")
