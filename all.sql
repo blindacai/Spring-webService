@@ -124,6 +124,7 @@ insert into acts_in values('Saving Private Ryan', '1998-07-24', 'Tom Hanks', '19
 -- insert into comments
 insert into comments values('hahaha', '2003-03-05', 2, seqC.NEXTVAL, 'foobar', 'Remember the Titans', '2000-09-23');
 insert into comments values('Well,well,well', '2005-10-03', 0, seqC.NEXTVAL, 'bobbytables', 'Harry Potter', '2001-11-04');
+insert into comments values('Ilikepie', '2010-10-27', 0, seqC.NEXTVAL, 'foobar', 'Harry Potter', '2001-11-04');
 insert into comments values('omg', '2004-01-25', 2, seqC.NEXTVAL, 'gameofthreads', 'Mona Lisa Smile', '2003-12-19');
 insert into comments values('hehehe', '1998-08-13', 1, seqC.NEXTVAL, 'helloworld', 'Saving Private Ryan', '1998-07-24');
 insert into comments values('what a movie', '2016-01-10', 0, seqC.NEXTVAL, 'helloworld', 'Coming Home', '2014-05-16');

@@ -102,9 +102,9 @@ public class Retrieve {
     // posting a review
     @CrossOrigin(origins = "http://localhost:3000")
     @RequestMapping(value = "/postreview", method = RequestMethod.POST)
-    public void insertReview(@RequestBody String param) throws SQLException {
+    public void insertReview(@RequestBody Review review) throws SQLException {
 
-        //database.postReview(text, rating, user, title, releasedate);
+        database.postReview(review.getText(), review.getRating(), review.getAccountName(), review.getTitle(), review.getReleaseDate());
     }
 
     // deleting a movie

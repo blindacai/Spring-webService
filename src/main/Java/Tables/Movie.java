@@ -32,9 +32,6 @@ public class Movie {
         } catch (java.sql.SQLException e) {
             this.company = null;
         }
-        comments = null;
-        reviews = null;
-
         this.database = database;
     }
 
