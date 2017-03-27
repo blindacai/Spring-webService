@@ -35,7 +35,7 @@ public class Database extends dbConnect {
                 " and releasedate = " + Query.formatVar(releasedate);
         ResultSet result = getResult(query);
         result.next();
-        return new Movie(result);
+        return new Movie(result, this);
     }
 
     public Actor getActor(String name, String birthday) throws SQLException {
@@ -47,13 +47,21 @@ public class Database extends dbConnect {
         return new Actor(result);
     }
 
+    public Review getReview(int id) throws SQLException {
+        String query = "select * from review " +
+                       "where id = " + id;
+        ResultSet result = getResult(query);
+        result.next();
+        return new Review(result);
+    }
+
     public List<Movie> getAllMovies() throws SQLException {
         List<Movie> movies = new ArrayList<Movie>();
         String query = "select title, releasedate from movie";
         ResultSet results = getResult(query);
         //ResultSet results = getResult(Query.selectALL("movie"));
         while(results.next()){
-            movies.add(new Movie(results));
+            movies.add(new Movie(results, this));
         }
         System.out.println("hahaha");
         return movies;
@@ -101,7 +109,7 @@ public class Database extends dbConnect {
 
         ResultSet results = getResult(query);
         while(results.next()){
-            movies.add(new Movie(results));
+            movies.add(new Movie(results, this));
         }
         return movies;
     }
@@ -115,7 +123,7 @@ public class Database extends dbConnect {
         List<Movie> movies = new ArrayList<Movie>();
         ResultSet results = getResult(query);
         while(results.next()){
-            movies.add(new Movie(results));
+            movies.add(new Movie(results, this));
         }
         return movies;
     }
@@ -127,6 +135,44 @@ public class Database extends dbConnect {
             actors.add(new Actor(results));
         }
         return actors;
+    }
+
+    public List<Comments> getAllComments(String title, String releasedate) throws SQLException {
+        List<Comments> comments = new ArrayList<Comments>();
+        String query = "select * from comments " +
+                       "where title = " + Query.formatVar(title) + " " +
+                       "and releasedate = " + Query.formatVar(releasedate);
+        ResultSet results = getResult(query);
+        while(results.next()){
+            comments.add(new Comments(results));
+        }
+        return comments;
+    }
+
+    public List<Review> getAllReviews(String title, String releasedate) throws SQLException {
+        List<Review> reviews = new ArrayList<Review>();
+        String query = "select * from review " +
+                       "where title = " + Query.formatVar(title) + " " +
+                       "and releasedate = " + Query.formatVar(releasedate);
+        ResultSet results = getResult(query);
+        while(results.next()){
+            reviews.add(new Review(results));
+        }
+        return reviews;
+    }
+
+    public List<Movie> getRatedByAll() throws SQLException {
+        List<Movie> movies = new ArrayList<Movie>();
+        String query =  "select m.title, m.releasedate from movie m\n" +
+                        "where not exists((select u1.accountname from users u1)\n" +
+                        "minus (select u2.accountname from users u2, review r\n" +
+                        "where r.rating = 5 and u2.accountname = r.accountname and r.title = m.title and r.releasedate = m.releasedate))";
+        ResultSet results = getResult(query);
+
+        while(results.next()){
+            movies.add(new Movie(results, this));
+        }
+        return movies;
     }
 
 

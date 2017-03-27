@@ -107,6 +107,7 @@ insert into users values('helloworld', 'helloworld123@hotmail.com', '1992-08-18'
 insert into users values('deadbeef', '404notfound@gmail.com', '1995-01-02');
 insert into users values('gameofthreads', 'diningphilosophers@hotmail.com', '1986-06-30');
 insert into users values('bobbytables', 'xkcd@hotmail.com', '1964-12-24');
+insert into users values('userone', 'userone@hotmail.com', '1984-12-24');
 -- insert into favourite
 insert into favourite values('Coming Home', '2014-05-16', 'bobbytables');
 insert into favourite values('Harry Potter', '2001-11-04', 'bobbytables');
@@ -126,6 +127,7 @@ insert into comments values('Well,well,well', '2005-10-03', 0, seqC.NEXTVAL, 'bo
 insert into comments values('omg', '2004-01-25', 2, seqC.NEXTVAL, 'gameofthreads', 'Mona Lisa Smile', '2003-12-19');
 insert into comments values('hehehe', '1998-08-13', 1, seqC.NEXTVAL, 'helloworld', 'Saving Private Ryan', '1998-07-24');
 insert into comments values('what a movie', '2016-01-10', 0, seqC.NEXTVAL, 'helloworld', 'Coming Home', '2014-05-16');
+insert into comments values('what a movie two', '2016-01-12', 3, seqC.NEXTVAL, 'userone', 'Coming Home', '2014-05-16');
 -- insert into review
 insert into review values ('The actors did a phenomenal job.', '2000-10-30', 4, seqR.NEXTVAL, 'helloworld', 'Remember the Titans', '2000-09-23');
 insert into review values ('I didnt think I would like a movie about football, but it was amazing!', '2001-02-16', 3, seqR.NEXTVAL, 'foobar', 'Remember the Titans', '2000-09-23');

@@ -1,10 +1,18 @@
 package Query;
 
+
 import Tables.Actor;
 import Tables.Database;
 import Tables.Movie;
 import Tables.MovieCount;
 import org.springframework.web.bind.annotation.*;
+
+import Tables.*;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
+
 
 import java.sql.SQLException;
 import java.util.List;
@@ -20,6 +28,7 @@ public class Retrieve {
         this.database = new Database();
     }
 
+
     @CrossOrigin(origins = "http://localhost:3000")
     @RequestMapping(value = "/movie/{title}/{releasedate}", method = RequestMethod.GET)
     public Movie getMovie(@PathVariable("title") String title,
@@ -27,20 +36,20 @@ public class Retrieve {
         return database.getMovie(title, releasedate);
     }
 
-    @CrossOrigin(origins = "http://localhost:3000")
     @RequestMapping(value = "/allmovies", method = RequestMethod.GET)
     public List<Movie> getAllMovies() throws SQLException {
         return database.getAllMovies();
     }
 
     @CrossOrigin(origins = "http://localhost:3000")
-    @RequestMapping(value = "/allmovies/{var1}", method = RequestMethod.GET)
+    @RequestMapping(value = "/allmovies1/{var1}", method = RequestMethod.GET)
     public List<Movie> getAllMovies(@PathVariable("var1") int var1) throws SQLException {
         return database.getAllMovies(var1);
+
     }
 
     @CrossOrigin(origins = "http://localhost:3000")
-    @RequestMapping(value = "/allmovies/{var1}/{var2}", method = RequestMethod.GET)
+    @RequestMapping(value = "/allmovies2/{var1}/{var2}", method = RequestMethod.GET)
     public List<Movie> getAllMovies(@PathVariable("var1") int var1,
                                     @PathVariable("var2") int var2) throws SQLException {
         return database.getAllMovies(var1, var2);
@@ -105,4 +114,16 @@ public class Retrieve {
                             @RequestParam(value="releasedate") String releasedate) throws SQLException {
         database.deleteMovie(title, releasedate);
     }
+
+    @RequestMapping("/ratedbyall")
+    public List<Movie> getRatedByAll() throws SQLException {
+        return database.getRatedByAll();
+    }
+
+    // for testing purpose
+    @RequestMapping("/allcomments")
+    public List<Comments> getAllComments() throws SQLException {
+        return database.getAllComments("Coming Home", "2014-05-16");
+    }
+
 }
