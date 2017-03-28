@@ -10,7 +10,7 @@ public class Rating {
     private double rating;
 
     public Rating(ResultSet result) throws SQLException {
-        this.rating = result.getInt("rating");
+        this.rating = result.getDouble("rating");
     }
 
     public double getRating() {
