@@ -274,8 +274,31 @@ public class Database extends dbConnect {
 
         String query;
 
-        if (var2 == "min" || var2 == "max") {
-            query = "";
+        if (var2.equals("min")) {
+            query = "SELECT temp.title, temp.releasedate, temp.rating " +
+                    "FROM (SELECT m.title, m.releasedate, " + var1 + "(rating) AS rating " +
+                    "FROM movie m, review r " +
+                    "where m.title = r.title and m.releasedate = r.releasedate " +
+                    "GROUP BY m.title, m.releasedate) temp " +
+                    "WHERE temp.rating <= all (SELECT " + var1 + "(rating) AS rating FROM movie m, review r " +
+                    "where m.title = r.title and m.releasedate = r.releasedate " +
+                    "GROUP BY m.title, m.releasedate);";
+
+            ResultSet result = getResult(query);
+            result.next();
+
+            return new Rating(result);
+        }
+        else if (var2.equals("max")) {
+
+            query = "SELECT temp.title, temp.releasedate, temp.rating " +
+                    "FROM (SELECT m.title, m.releasedate, " + var1 + "(rating) AS rating " +
+                    "FROM movie m, review r " +
+                    "where m.title = r.title and m.releasedate = r.releasedate " +
+                    "GROUP BY m.title, m.releasedate) temp " +
+                    "WHERE temp.rating >= all (SELECT " + var1 + "(rating) AS rating FROM movie m, review r " +
+                    "where m.title = r.title and m.releasedate = r.releasedate " +
+                    "GROUP BY m.title, m.releasedate);";
 
             ResultSet result = getResult(query);
             result.next();
@@ -285,9 +308,9 @@ public class Database extends dbConnect {
 
         else {
             query = "SELECT " + var2 + "(temp.rating) " +
-                    "FROM (SELECT m.title, m.releasedate, avg(rating) AS rating\n" +
+                    "FROM (SELECT m.title, m.releasedate, " + var1 + "(rating) AS rating " +
                     "FROM movie m, review r " +
-                    "where m.title = r.title and m.releasedate = r.releasedate\n" +
+                    "where m.title = r.title and m.releasedate = r.releasedate " +
                     "GROUP BY m.title, m.releasedate) temp";
 
             ResultSet result = getResult(query);

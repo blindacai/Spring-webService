@@ -100,6 +100,13 @@ public class Retrieve {
         return database.getActorWithLeastMovies();
     }
 
+    // nested aggregation ALL
+    @CrossOrigin(origins = "http://localhost:3000")
+    @RequestMapping(value = "/nested/var1/var2", method = RequestMethod.GET)
+    public Rating getNestedAggregation(@PathVariable(value="var1") String var1,
+                                       @PathVariable(value="var2") String var2) throws SQLException {
+        return database.nestedRating(var1, var2);
+    }
 
     // posting a review
     @CrossOrigin(origins = "http://localhost:3000")
