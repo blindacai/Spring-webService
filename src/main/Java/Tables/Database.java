@@ -101,7 +101,7 @@ public class Database extends dbConnect {
         if (var1 <= 3) {
             query = "select title, releasedate, " + userinput + " from movie";
         }
-        else query = "select * from movie where releasedate like " + Query.formatVar(userinput);
+        else query = "select title, releasedate from movie where releasedate like " + Query.formatVar(userinput);
 
         System.out.println(var1);
         System.out.println(userinput);
