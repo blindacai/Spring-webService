@@ -193,17 +193,15 @@ public class Database extends dbConnect {
         return new MovieCount(result);
     }
 
+    // Simple Aggregation All
+    public Rating getRatingAggregation(String var, String title, String releasedate) throws SQLException {
+        String query = "select " + var + "(rating) as rating from movie m, review r where m.title = r.title and " +
+                "m.releasedate = r.releasedate and m.title = '" + title + "' and m.releasedate = '" + releasedate + "'";
+        ResultSet result = getResult(query);
+        result.next();
 
-//    // Update Query: insert a new review
-//    public void postReview(String text, int rating, String user, String movieTitle, String releaseDate) throws SQLException{
-//
-//        java.util.Date date = new java.util.Date();
-//        String modifiedDate = new SimpleDateFormat("yyyy-MM-dd").format(date);
-//        String query = "insert into review values (" + "'" + text + "', '" + modifiedDate + "', " + rating  +
-//                ", seqR.NEXTVAL, '" + user + "', '" + movieTitle + "', '" + releaseDate +"')";
-//        statement.executeUpdate(query);
-//        connection.commit();
-//    }
+        return new Rating(result);
+    }
 
     // Update Query: insert a new review
     public void postReview(String text, int rating, String user, String movieTitle, String releaseDate) throws SQLException{

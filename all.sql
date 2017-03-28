@@ -35,6 +35,7 @@ create table actor (
 );
 create table users ( 
 	accountname varchar(25) not null PRIMARY KEY, 
+	password varchar(25),
 	email varchar(35), 
 	birthday varchar(10) 
 );
@@ -102,12 +103,13 @@ insert into actor values('Daniel Radcliffe', '1989-07-23', 'British');
 insert into actor values('Edward Burns', '1968-01-29', 'American');
 insert into actor values('Julia Roberts', '1967-10-28', 'American');
 -- insert into users
-insert into users values('foobar', 'foo_bar@gmail.com', '1989-02-15');
-insert into users values('helloworld', 'helloworld123@hotmail.com', '1992-08-18');
-insert into users values('deadbeef', '404notfound@gmail.com', '1995-01-02');
-insert into users values('gameofthreads', 'diningphilosophers@hotmail.com', '1986-06-30');
-insert into users values('bobbytables', 'xkcd@hotmail.com', '1964-12-24');
-insert into users values('userone', 'userone@hotmail.com', '1984-12-24');
+insert into users values('foobar', '123', 'foo_bar@gmail.com', '1989-02-15');
+insert into users values('helloworld', '123', 'helloworld123@hotmail.com', '1992-08-18');
+insert into users values('deadbeef', '123', '404notfound@gmail.com', '1995-01-02');
+insert into users values('gameofthreads', '123', 'diningphilosophers@hotmail.com', '1986-06-30');
+insert into users values('bobbytables', '123', 'xkcd@hotmail.com', '1964-12-24');
+insert into users values('userone', '123', 'userone@hotmail.com', '1984-12-24');
+insert into users values('admin', 'a123', NULL, NULL);
 -- insert into favourite
 insert into favourite values('Coming Home', '2014-05-16', 'bobbytables');
 insert into favourite values('Harry Potter', '2001-11-04', 'bobbytables');

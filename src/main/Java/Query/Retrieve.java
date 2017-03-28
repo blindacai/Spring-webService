@@ -77,6 +77,15 @@ public class Retrieve {
         return database.getMovieCount(name, birthday);
     }
 
+    // simple aggregation ALL
+    // var = avg, sum, max, min, count
+    @RequestMapping(value = "/rating/{title}/{releasedate}/{var}", method = RequestMethod.GET)
+    public Rating getRatingAggregation(@PathVariable(value="title") String title,
+                                     @PathVariable(value="releasedate") String releasedate,
+                                     @PathVariable(value="var") String var) throws SQLException {
+        return database.getRatingAggregation(var, title, releasedate);
+    }
+
     // nested aggregation 1
     @CrossOrigin(origins = "http://localhost:3000")
     @RequestMapping(value = "/mostmovies", method = RequestMethod.GET)
@@ -91,18 +100,6 @@ public class Retrieve {
         return database.getActorWithLeastMovies();
     }
 
-//    // posting a review
-//    @CrossOrigin(origins = "http://localhost:3000")
-//    @RequestMapping(value = "/postreview", method = RequestMethod.POST)
-//    public int insertReview(@RequestBody LinkedHashMap<String, Object> object) throws SQLException {
-//        String text = (String) object.get("text");
-//        int rating = (int) object.get("rating");
-//        String user = (String) object.get("accountName");
-//        String title = (String) object.get("title");
-//        String date = (String) object.get("releaseDate");
-//        database.postReview(text, rating, user, title, date);
-//        return 1;
-//    }
 
     // posting a review
     @CrossOrigin(origins = "http://localhost:3000")
