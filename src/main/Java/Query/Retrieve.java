@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 
 import java.sql.SQLException;
+import java.util.LinkedHashMap;
 import java.util.List;
 
 /**
@@ -42,14 +43,14 @@ public class Retrieve {
     }
 
     @CrossOrigin(origins = "http://localhost:3000")
-    @RequestMapping(value = "/allmovies1/{var1}", method = RequestMethod.GET)
+    @RequestMapping(value = "/allmoviesone/{var1}", method = RequestMethod.GET)
     public List<Movie> getAllMovies(@PathVariable("var1") int var1) throws SQLException {
         return database.getAllMovies(var1);
 
     }
 
     @CrossOrigin(origins = "http://localhost:3000")
-    @RequestMapping(value = "/allmovies2/{var1}/{var2}", method = RequestMethod.GET)
+    @RequestMapping(value = "/allmoviestwo/{var1}/{var2}", method = RequestMethod.GET)
     public List<Movie> getAllMovies(@PathVariable("var1") int var1,
                                     @PathVariable("var2") int var2) throws SQLException {
         return database.getAllMovies(var1, var2);
@@ -76,6 +77,15 @@ public class Retrieve {
         return database.getMovieCount(name, birthday);
     }
 
+    // simple aggregation ALL
+    // var = avg, sum, max, min, count
+    @RequestMapping(value = "/rating/{title}/{releasedate}/{var}", method = RequestMethod.GET)
+    public Rating getRatingAggregation(@PathVariable(value="title") String title,
+                                     @PathVariable(value="releasedate") String releasedate,
+                                     @PathVariable(value="var") String var) throws SQLException {
+        return database.getRatingAggregation(var, title, releasedate);
+    }
+
     // nested aggregation 1
     @CrossOrigin(origins = "http://localhost:3000")
     @RequestMapping(value = "/mostmovies", method = RequestMethod.GET)
@@ -90,21 +100,23 @@ public class Retrieve {
         return database.getActorWithLeastMovies();
     }
 
-//    // posting a review
-//    @CrossOrigin(origins = "http://localhost:3000")
-//    @RequestMapping(value = "/postreview", method = RequestMethod.POST)
-//    public void insertReview(@RequestParam(value="text") String text, @RequestParam(value="rating") int rating,
-//                             @RequestParam(value="user") String user, @RequestParam(value="movietitle") String title,
-//                             @RequestParam(value="releasedate") String releasedate) throws SQLException {
-//        database.postReview(text, rating, user, title, releasedate);
-//    }
 
     // posting a review
     @CrossOrigin(origins = "http://localhost:3000")
     @RequestMapping(value = "/postreview", method = RequestMethod.POST)
-    public void insertReview(@RequestBody String param) throws SQLException {
+    public int insertReview(@RequestBody LinkedHashMap<String, Object> object) throws SQLException {
+        String text = (String) object.get("text");
+        int rating = (int) object.get("rating");
+        String user = (String) object.get("accountName");
+        String title = (String) object.get("title");
+        String date = (String) object.get("releaseDate");
+        try{
+            database.postReview(text, rating, user, title, date);
+            return 1;
+        } catch (SQLException e) {
+            return 0;
+        }
 
-        //database.postReview(text, rating, user, title, releasedate);
     }
 
     // deleting a movie

@@ -18,6 +18,7 @@ public class Movie {
     private List<Comments> comments;
     private List<Review> reviews;
     private Database database;
+    private Double rating;
 
     public Movie(ResultSet result, Database database, boolean singleMovie) throws SQLException {
         this.title = result.getString("title");
@@ -33,12 +34,18 @@ public class Movie {
             this.company = null;
         }
 
+
         if(singleMovie){
             this.comments = database.getAllComments(title, released);
             this.reviews = database.getAllReviews(title, released);
         }
+        
 
-        this.database = database;
+        try {
+            this.rating = result.getDouble("rating");
+        } catch (java.sql.SQLException e) {
+            this.rating = null;
+        }
     }
 
     public String getTitle() {

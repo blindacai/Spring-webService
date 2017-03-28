@@ -191,17 +191,15 @@ public class Database extends dbConnect {
         return new MovieCount(result);
     }
 
+    // Simple Aggregation All
+    public Rating getRatingAggregation(String var, String title, String releasedate) throws SQLException {
+        String query = "select " + var + "(rating) as rating from movie m, review r where m.title = r.title and " +
+                "m.releasedate = r.releasedate and m.title = '" + title + "' and m.releasedate = '" + releasedate + "'";
+        ResultSet result = getResult(query);
+        result.next();
 
-//    // Update Query: insert a new review
-//    public void postReview(String text, int rating, String user, String movieTitle, String releaseDate) throws SQLException{
-//
-//        java.util.Date date = new java.util.Date();
-//        String modifiedDate = new SimpleDateFormat("yyyy-MM-dd").format(date);
-//        String query = "insert into review values (" + "'" + text + "', '" + modifiedDate + "', " + rating  +
-//                ", seqR.NEXTVAL, '" + user + "', '" + movieTitle + "', '" + releaseDate +"')";
-//        statement.executeUpdate(query);
-//        connection.commit();
-//    }
+        return new Rating(result);
+    }
 
     // Update Query: insert a new review
     public void postReview(String text, int rating, String user, String movieTitle, String releaseDate) throws SQLException{
@@ -268,4 +266,33 @@ public class Database extends dbConnect {
         }
         return actors;
     }
+
+    // Nested Aggregation ALL
+    public Rating nestedRating(String var1, String var2) throws SQLException {
+
+        String query;
+
+        if (var2 == "min" || var2 == "max") {
+            query = "";
+
+            ResultSet result = getResult(query);
+            result.next();
+
+            return new Rating(result);
+        }
+
+        else {
+            query = "SELECT " + var2 + "(temp.rating) " +
+                    "FROM (SELECT m.title, m.releasedate, avg(rating) AS rating\n" +
+                    "FROM movie m, review r " +
+                    "where m.title = r.title and m.releasedate = r.releasedate\n" +
+                    "GROUP BY m.title, m.releasedate) temp";
+
+            ResultSet result = getResult(query);
+            result.next();
+
+            return new Rating(result);
+        }
+    }
+
 }
