@@ -2,6 +2,8 @@ package Tables;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.DecimalFormat;
+
 import static jdk.nashorn.internal.objects.NativeMath.round;
 
 /**
@@ -11,7 +13,9 @@ public class Rating {
     private double rating;
 
     public Rating(ResultSet result) throws SQLException {
-        this.rating = round(result.getDouble("rating"), 1);
+        double d = result.getDouble("rating");
+        DecimalFormat f = new DecimalFormat("##.0");
+        this.rating = Double.parseDouble(f.format(d));
     }
 
     public double getRating() {
