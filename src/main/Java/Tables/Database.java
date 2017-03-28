@@ -269,4 +269,32 @@ public class Database extends dbConnect {
         return actors;
     }
 
+    // Nested Aggregation ALL
+    public Rating nestedRating(String var1, String var2) throws SQLException {
+
+        String query;
+
+        if (var2 == "min" || var2 == "max") {
+            query = "";
+
+            ResultSet result = getResult(query);
+            result.next();
+
+            return new Rating(result);
+        }
+
+        else {
+            query = "SELECT " + var2 + "(temp.rating) " +
+                    "FROM (SELECT m.title, m.releasedate, avg(rating) AS rating\n" +
+                    "FROM movie m, review r " +
+                    "where m.title = r.title and m.releasedate = r.releasedate\n" +
+                    "GROUP BY m.title, m.releasedate) temp";
+
+            ResultSet result = getResult(query);
+            result.next();
+
+            return new Rating(result);
+        }
+    }
+
 }
