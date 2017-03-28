@@ -163,9 +163,9 @@ public class Database extends dbConnect {
 
     public List<Movie> getRatedByAll() throws SQLException {
         List<Movie> movies = new ArrayList<Movie>();
-        String query =  "select m.title, m.releasedate from movie m\n" +
-                        "where not exists((select u1.accountname from users u1)\n" +
-                        "minus (select u2.accountname from users u2, review r\n" +
+        String query =  "select m.title, m.releasedate from movie m " +
+                        "where not exists((select u1.accountname from users u1) " +
+                        "minus (select u2.accountname from users u2, review r " +
                         "where r.rating = 5 and u2.accountname = r.accountname and r.title = m.title and r.releasedate = m.releasedate))";
         ResultSet results = getResult(query);
 
