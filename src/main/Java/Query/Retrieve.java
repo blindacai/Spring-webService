@@ -139,6 +139,12 @@ public class Retrieve {
         return database.getRatedByAll();
     }
 
+    // DIVISION WITH CHOICES OF RATING
+    @RequestMapping(value = "/ratedbyall2/{rating}", method = RequestMethod.GET)
+    public List<Movie> getRatedByAllInput(@PathVariable(value="rating") int rating) throws SQLException {
+        return database.getRatedByAllInput(rating);
+    }
+
     // for testing purpose
     @RequestMapping("/allcomments")
     public List<Comments> getAllComments() throws SQLException {
