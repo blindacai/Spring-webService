@@ -15,11 +15,11 @@ public class Movie {
     private String released;
     private String director;
     private String company;
-    private String comments;
-    private String reviews;
+    private List<Comments> comments;
+    private List<Review> reviews;
     private Database database;
 
-    public Movie(ResultSet result, Database database) throws SQLException {
+    public Movie(ResultSet result, Database database, boolean singleMovie) throws SQLException {
         this.title = result.getString("title");
         this.released = result.getString("releasedate");
         try {
@@ -32,8 +32,11 @@ public class Movie {
         } catch (java.sql.SQLException e) {
             this.company = null;
         }
-        comments = null;
-        reviews = null;
+
+        if(singleMovie){
+            this.comments = database.getAllComments(title, released);
+            this.reviews = database.getAllReviews(title, released);
+        }
 
         this.database = database;
     }
@@ -70,11 +73,19 @@ public class Movie {
         this.company = company;
     }
 
-    public List<Comments> getComments() throws SQLException {
-        return database.getAllComments(this.title, this.released);
+    public List<Comments> getComments() {
+        return comments;
     }
 
-    public List<Review> getReviews() throws SQLException {
-        return database.getAllReviews(this.title, this.released);
+    public void setComments(List<Comments> comments) {
+        this.comments = comments;
+    }
+
+    public List<Review> getReviews() {
+        return reviews;
+    }
+
+    public void setReviews(List<Review> reviews) {
+        this.reviews = reviews;
     }
 }

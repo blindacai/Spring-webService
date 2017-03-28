@@ -34,7 +34,8 @@ public class Database extends dbConnect {
                 " and releasedate = " + Query.formatVar(releasedate);
         ResultSet result = getResult(query);
         result.next();
-        return new Movie(result, this);
+        Movie movie = new Movie(result, this, true);
+        return movie;
     }
 
     public Actor getActor(String name, String birthday) throws SQLException {
@@ -58,11 +59,9 @@ public class Database extends dbConnect {
         List<Movie> movies = new ArrayList<Movie>();
         String query = "select title, releasedate from movie";
         ResultSet results = getResult(query);
-        //ResultSet results = getResult(Query.selectALL("movie"));
         while(results.next()){
-            movies.add(new Movie(results, this));
+            movies.add(new Movie(results, this, false));
         }
-        System.out.println("hahaha");
         return movies;
     }
 
@@ -108,7 +107,7 @@ public class Database extends dbConnect {
 
         ResultSet results = getResult(query);
         while(results.next()){
-            movies.add(new Movie(results, this));
+            movies.add(new Movie(results, this, false));
         }
         return movies;
     }
@@ -122,7 +121,7 @@ public class Database extends dbConnect {
         List<Movie> movies = new ArrayList<Movie>();
         ResultSet results = getResult(query);
         while(results.next()){
-            movies.add(new Movie(results, this));
+            movies.add(new Movie(results, this, false));
         }
         return movies;
     }
@@ -169,7 +168,7 @@ public class Database extends dbConnect {
         ResultSet results = getResult(query);
 
         while(results.next()){
-            movies.add(new Movie(results, this));
+            movies.add(new Movie(results, this, false));
         }
         return movies;
     }
