@@ -183,7 +183,7 @@ public class Database extends dbConnect {
         ResultSet results = getResult(query);
 
         while(results.next()){
-            movies.add(new Movie(results, this));
+            movies.add(new Movie(results, this, false));
         }
         return movies;
     }
