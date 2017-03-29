@@ -99,7 +99,7 @@ public class Database extends dbConnect {
         if (var1 <= 3) {
             query = "select title, releasedate, " + userinput + " from movie";
         }
-        else query = "select * from movie where releasedate like " + Query.formatVar(userinput);
+        else query = "select title, releasedate from movie where releasedate like " + Query.formatVar(userinput);
 
         System.out.println(var1);
         System.out.println(userinput);
@@ -161,14 +161,29 @@ public class Database extends dbConnect {
 
     public List<Movie> getRatedByAll() throws SQLException {
         List<Movie> movies = new ArrayList<Movie>();
-        String query =  "select m.title, m.releasedate from movie m\n" +
-                        "where not exists((select u1.accountname from users u1)\n" +
-                        "minus (select u2.accountname from users u2, review r\n" +
+        String query =  "select m.title, m.releasedate from movie m " +
+                        "where not exists((select u1.accountname from users u1) " +
+                        "minus (select u2.accountname from users u2, review r " +
                         "where r.rating = 5 and u2.accountname = r.accountname and r.title = m.title and r.releasedate = m.releasedate))";
         ResultSet results = getResult(query);
 
         while(results.next()){
             movies.add(new Movie(results, this, false));
+        }
+        return movies;
+    }
+
+    // DIVISION WITH CHOICES OF RATING
+    public List<Movie> getRatedByAllInput(int rating) throws SQLException {
+        List<Movie> movies = new ArrayList<Movie>();
+        String query =  "select m.title, m.releasedate from movie m " +
+                "where not exists((select u1.accountname from users u1) " +
+                "minus (select u2.accountname from users u2, review r " +
+                "where r.rating = " + rating +" and u2.accountname = r.accountname and r.title = m.title and r.releasedate = m.releasedate))";
+        ResultSet results = getResult(query);
+
+        while(results.next()){
+            movies.add(new Movie(results, this));
         }
         return movies;
     }
@@ -268,30 +283,60 @@ public class Database extends dbConnect {
     }
 
     // Nested Aggregation ALL
-    public Rating nestedRating(String var1, String var2) throws SQLException {
+    public List<Rating> nestedRating(String var1, String var2) throws SQLException {
 
+        List<Rating> ratings = new ArrayList<>();
         String query;
 
-        if (var2 == "min" || var2 == "max") {
-            query = "";
+        if (var2.equals("min")) {
+            query = "SELECT temp.title as title, temp.releasedate as releasedate, temp.rating as rating " +
+                    "FROM (SELECT m.title, m.releasedate, " + var1 + "(rating) AS rating " +
+                    "FROM movie m, review r " +
+                    "where m.title = r.title and m.releasedate = r.releasedate " +
+                    "GROUP BY m.title, m.releasedate) temp " +
+                    "WHERE temp.rating <= all (SELECT " + var1 + "(rating) AS rating FROM movie m, review r " +
+                    "where m.title = r.title and m.releasedate = r.releasedate " +
+                    "GROUP BY m.title, m.releasedate)";
 
             ResultSet result = getResult(query);
-            result.next();
+            while(result.next()) {
+                ratings.add(new Rating(result));
+            }
+            System.out.println(query);
+            return ratings;
+        }
+        else if (var2.equals("max")) {
 
-            return new Rating(result);
+            query = "SELECT temp.title as title, temp.releasedate as releasedate, temp.rating as rating " +
+                    "FROM (SELECT m.title, m.releasedate, " + var1 + "(rating) AS rating " +
+                    "FROM movie m, review r " +
+                    "where m.title = r.title and m.releasedate = r.releasedate " +
+                    "GROUP BY m.title, m.releasedate) temp " +
+                    "WHERE temp.rating >= all (SELECT " + var1 + "(rating) AS rating FROM movie m, review r " +
+                    "where m.title = r.title and m.releasedate = r.releasedate " +
+                    "GROUP BY m.title, m.releasedate)";
+
+            ResultSet result = getResult(query);
+            while(result.next()) {
+                ratings.add(new Rating(result));
+            }
+            System.out.println(query);
+            return ratings;
         }
 
         else {
-            query = "SELECT " + var2 + "(temp.rating) " +
-                    "FROM (SELECT m.title, m.releasedate, avg(rating) AS rating\n" +
+            query = "SELECT " + var2 + "(temp.rating) as rating " +
+                    "FROM (SELECT m.title, m.releasedate, " + var1 + "(rating) AS rating " +
                     "FROM movie m, review r " +
-                    "where m.title = r.title and m.releasedate = r.releasedate\n" +
+                    "where m.title = r.title and m.releasedate = r.releasedate " +
                     "GROUP BY m.title, m.releasedate) temp";
 
             ResultSet result = getResult(query);
-            result.next();
-
-            return new Rating(result);
+            while(result.next()) {
+                ratings.add(new Rating(result));
+            }
+            System.out.println(query);
+            return ratings;
         }
     }
 

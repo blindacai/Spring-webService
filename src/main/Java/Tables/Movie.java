@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.DecimalFormat;
 import java.util.List;
 
 /**
@@ -42,7 +43,9 @@ public class Movie {
         
 
         try {
-            this.rating = result.getDouble("rating");
+            double d = result.getDouble("rating");
+            DecimalFormat f = new DecimalFormat("##.0");
+            this.rating = Double.parseDouble(f.format(d));
         } catch (java.sql.SQLException e) {
             this.rating = null;
         }

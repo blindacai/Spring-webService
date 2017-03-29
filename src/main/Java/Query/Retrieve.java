@@ -100,6 +100,13 @@ public class Retrieve {
         return database.getActorWithLeastMovies();
     }
 
+    // nested aggregation ALL
+    @CrossOrigin(origins = "http://localhost:3000")
+    @RequestMapping(value = "/nested/{var1}/{var2}", method = RequestMethod.GET)
+    public List<Rating> getNestedAggregation(@PathVariable(value="var1") String var1,
+                                       @PathVariable(value="var2") String var2) throws SQLException {
+        return database.nestedRating(var1, var2);
+    }
 
     // posting a review
     @CrossOrigin(origins = "http://localhost:3000")
@@ -130,6 +137,12 @@ public class Retrieve {
     @RequestMapping("/ratedbyall")
     public List<Movie> getRatedByAll() throws SQLException {
         return database.getRatedByAll();
+    }
+
+    // DIVISION WITH CHOICES OF RATING
+    @RequestMapping(value = "/ratedbyall2/{rating}", method = RequestMethod.GET)
+    public List<Movie> getRatedByAllInput(@PathVariable(value="rating") int rating) throws SQLException {
+        return database.getRatedByAllInput(rating);
     }
 
     // for testing purpose
