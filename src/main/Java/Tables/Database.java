@@ -258,8 +258,10 @@ public class Database extends dbConnect {
 
     // Delete Query: delete a movie
     public void deleteMovie(String title, String releasedate) throws SQLException {
-        String query = "delete from movie where title ='" + title + "' and releasedate = '" + releasedate + "'";
-        statement.executeUpdate(query);
+        PreparedStatement ps = connection.prepareStatement("delete from movie where title = ? and releasedate = ?");
+        ps.setString(1, title);
+        ps.setString(2, releasedate);
+        ps.executeUpdate();
         connection.commit();
     }
 
