@@ -102,9 +102,11 @@ public class Retrieve {
 
     // nested aggregation ALL
     @CrossOrigin(origins = "http://localhost:3000")
-    @RequestMapping(value = "/nested/var1/var2", method = RequestMethod.GET)
-    public Rating getNestedAggregation(@PathVariable(value="var1") String var1,
+    @RequestMapping(value = "/nested/{var1}/{var2}", method = RequestMethod.GET)
+    public List<Rating> getNestedAggregation(@PathVariable(value="var1") String var1,
                                        @PathVariable(value="var2") String var2) throws SQLException {
+        System.out.println("inside aggregation");
+        System.out.println(var2);
         return database.nestedRating(var1, var2);
     }
 

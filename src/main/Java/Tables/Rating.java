@@ -6,8 +6,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.text.DecimalFormat;
 
-import static jdk.nashorn.internal.objects.NativeMath.round;
-
 /**
  * Created by csam on 2017-03-28.
  */
@@ -25,7 +23,7 @@ public class Rating {
             this.title = null;
         }
         try {
-            this.releasedate = result.getString("title");
+            this.releasedate = result.getString("releasedate");
         } catch (java.sql.SQLException e) {
             this.releasedate = null;
         }
@@ -40,5 +38,21 @@ public class Rating {
 
     public void setRating(double rating) {
         this.rating = rating;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public String getReleasedate() {
+        return releasedate;
+    }
+
+    public void setReleasedate(String releasedate) {
+        this.releasedate = releasedate;
     }
 }
