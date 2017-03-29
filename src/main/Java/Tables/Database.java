@@ -3,6 +3,7 @@ package Tables;
 import Utils.Query;
 import Utils.dbConnect;
 
+import javax.xml.transform.Result;
 import java.sql.*;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -214,6 +215,15 @@ public class Database extends dbConnect {
         result.next();
 
         return new Rating(result);
+    }
+
+    // return a review object
+    public Review getUserReview(int id) throws SQLException{
+        String query = "select * from review where id = " + id;
+        ResultSet result = getResult(query);
+        result.next();
+
+        return new Review(result);
     }
 
     // Update Query: insert a new review

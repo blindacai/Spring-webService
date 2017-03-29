@@ -126,6 +126,11 @@ public class Retrieve {
 
     }
 
+    @RequestMapping(value = "/getreview/{id}", method = RequestMethod.POST)
+    public Review getUserReview(@PathVariable(value="id") int id) throws SQLException {
+            return getUserReview(id);
+    }
+
     // deleting a movie
     @CrossOrigin(origins = "http://localhost:3000")
     @RequestMapping(value = "/deletemovie", method = RequestMethod.DELETE)
