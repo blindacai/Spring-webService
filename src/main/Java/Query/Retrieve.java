@@ -105,8 +105,6 @@ public class Retrieve {
     @RequestMapping(value = "/nested/{var1}/{var2}", method = RequestMethod.GET)
     public List<Rating> getNestedAggregation(@PathVariable(value="var1") String var1,
                                        @PathVariable(value="var2") String var2) throws SQLException {
-        System.out.println("inside aggregation");
-        System.out.println(var2);
         return database.nestedRating(var1, var2);
     }
 
