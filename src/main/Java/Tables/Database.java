@@ -245,10 +245,13 @@ public class Database extends dbConnect {
 
     // Update Query2: update a review
     public void updateReview(String text, int rating, int id) throws SQLException {
-        PreparedStatement ps = connection.prepareStatement("update review set text = ?, rating = ? where id = ?");
+        java.util.Date date = new java.util.Date();
+        String modifiedDate = new SimpleDateFormat("yyyy-MM-dd").format(date);
+        PreparedStatement ps = connection.prepareStatement("update review set text = ?, rating = ?, postdate = ? where id = ?");
         ps.setString(1, text);
         ps.setInt(2, rating);
-        ps.setInt(3, id);
+        ps.setString(3, modifiedDate);
+        ps.setInt(4, id);
         ps.executeUpdate();
         connection.commit();
     }

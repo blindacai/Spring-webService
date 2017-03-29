@@ -137,11 +137,15 @@ insert into review values ('I didnt think I would like a movie about football, b
 insert into review values ('Watched it in the cinema, watched again at home', '2012-08-25', 4, seqR.NEXTVAL, 'foobar', 'Saving Private Ryan', '1998-07-24');
 insert into review values ('It was ok. I liked the book better.', '2016-12-12', 2, seqR.NEXTVAL, 'deadbeef', 'Harry Potter', '2001-11-04');
 insert into review values ('This movie is amazing. I love the way how the director tells the story..', '2008-03-25', 5, seqR.NEXTVAL, 'deadbeef', 'Mona Lisa Smile', '2003-12-19');
+insert into review values ('woow', '2010-03-25', 3, seqR.NEXTVAL, 'gameofthreads', 'Harry Potter', '2001-11-04');
+insert into review values ('Very GOOD', '2012-01-25', 4, seqR.NEXTVAL, 'bobbytables', 'Coming Home', '2014-05-16');
 
 insert into review values ('Good', '2007-03-25', 5, seqR.NEXTVAL, 'foobar', 'Mona Lisa Smile', '2003-12-19');
 insert into review values ('Thumbs up', '2002-03-25', 5, seqR.NEXTVAL, 'helloworld', 'Mona Lisa Smile', '2003-12-19');
 insert into review values ('Best', '2001-03-25', 5, seqR.NEXTVAL, 'bobbytables', 'Mona Lisa Smile', '2003-12-19');
 insert into review values ('Great', '2000-03-25', 5, seqR.NEXTVAL, 'gameofthreads', 'Mona Lisa Smile', '2003-12-19');
+insert into review values ('Amazing', '2005-03-25', 5, seqR.NEXTVAL, 'userone', 'Mona Lisa Smile', '2003-12-19');
+insert into review values ('So good', '2006-03-25', 5, seqR.NEXTVAL, 'admin', 'Mona Lisa Smile', '2003-12-19');
 
 -- insert into upvote
 insert into upvote values('helloworld', 2);
