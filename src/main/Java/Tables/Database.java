@@ -243,6 +243,16 @@ public class Database extends dbConnect {
         connection.commit();
     }
 
+    // Update Query2: update a review
+    public void updateReview(String text, int rating, int id) throws SQLException {
+        PreparedStatement ps = connection.prepareStatement("update review set text = ?, rating = ? where id = ?");
+        ps.setString(1, text);
+        ps.setInt(2, rating);
+        ps.setInt(3, id);
+        ps.executeUpdate();
+        connection.commit();
+    }
+
     // Delete Query: delete a movie
     public void deleteMovie(String title, String releasedate) throws SQLException {
         String query = "delete from movie where title ='" + title + "' and releasedate = '" + releasedate + "'";
