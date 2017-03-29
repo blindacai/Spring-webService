@@ -126,9 +126,12 @@ public class Retrieve {
 
     }
 
-    @RequestMapping(value = "/getreview/{id}", method = RequestMethod.POST)
-    public Review getUserReview(@PathVariable(value="id") int id) throws SQLException {
-            return getUserReview(id);
+    @RequestMapping(value = "/getreview/{id}", method = RequestMethod.GET)
+    public Review getUserReview(@PathVariable(value="id") String id) throws SQLException {
+
+        int foo = Integer.parseInt(id);
+
+        return database.getUserReview(foo);
     }
 
     // deleting a movie
