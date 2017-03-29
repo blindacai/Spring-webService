@@ -189,12 +189,12 @@ public class Database extends dbConnect {
     }
 
 
-    public Users getUser(String name) throws SQLException {
-        String query = "select * from users where accountname = " + "'" + name + "'";
-        ResultSet result = getResult(query);
-        result.next();
-        return new Users(result);
-    }
+//    public Users getUser(String name) throws SQLException {
+//        String query = "select * from users where accountname = " + "'" + name + "'";
+//        ResultSet result = getResult(query);
+//        result.next();
+//        return new Users(result);
+//    }
 
     // Simple Aggregation
     public MovieCount getMovieCount(String actor, String birthday) throws SQLException {
@@ -337,6 +337,30 @@ public class Database extends dbConnect {
             }
             System.out.println(query);
             return ratings;
+        }
+    }
+
+
+    public Users getUser(String username) throws SQLException {
+        String query = "SELECT * FROM users WHERE accountname = " + Query.formatVar(username);
+        ResultSet resultSet = getResult(query);
+
+        if (!resultSet.isBeforeFirst() ) {
+            return null;
+        } else {
+            resultSet.next();
+            return new Users(resultSet);
+        }
+    }
+
+    public boolean checkPassword(String username, String password) throws SQLException {
+        Users user = getUser(username);
+
+        if (user == null) {
+            return false;
+        } else {
+            System.out.println(user.toString());
+            return user.getPassword().equals(password);
         }
     }
 

@@ -151,4 +151,15 @@ public class Retrieve {
         return database.getAllComments("Coming Home", "2014-05-16");
     }
 
+    @CrossOrigin(origins = "http://localhost:3000")
+    @RequestMapping(value = "/login", method = RequestMethod.POST)
+    public boolean login(@RequestBody LinkedHashMap<String, String> params) throws SQLException {
+        String username = params.get("username");
+        String password = params.get("password");
+        System.out.println(username);
+        System.out.println(password);
+
+        return database.checkPassword(username, password);
+    }
+
 }

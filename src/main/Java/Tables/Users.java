@@ -9,11 +9,13 @@ public class Users {
     private String accountName;
     private String email;
     private String birthday;
+    private String password;
 
     public Users(ResultSet result) throws SQLException {
         this.accountName = result.getString("accountname");
         this.email = result.getString("email");
         this.birthday = result.getString("birthday");
+        this.password = result.getString("password");
     }
 
     public String getAccountName() {
@@ -38,5 +40,17 @@ public class Users {
 
     public void setBirthday(String birthday) {
         this.birthday = birthday;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public String toString() {
+        return "Username: " + getAccountName() + " Password: " + getPassword();
     }
 }
