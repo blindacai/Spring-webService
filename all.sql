@@ -97,6 +97,7 @@ insert into movie values('Saving Private Ryan', '1998-07-24', 'Steven Spielberg'
 insert into movie values('Harry Potter', '2001-11-04', 'Chris Columbus', 'Warner Bros. Pictures');
 insert into movie values('Coming Home', '2014-05-16', 'Zhang Yimou', 'Sony Pictures Classics');
 insert into movie values('Beauty and the Beast', '2017-02-23', 'Bill Condon', 'Walt Disney Studios');
+insert into movie values('Titanic', '1997-12-19', 'James Cameron', 'Paramount Pictures');
 -- insert into actor
 insert into actor values('Tom Hanks', '1956-07-09', 'American');
 insert into actor values('Gong Li', '1965-12-31', 'Singaporean');
