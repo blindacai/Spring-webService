@@ -1,5 +1,6 @@
-package Tables;
+package Query;
 
+import Tables.*;
 import Utils.Query;
 import Utils.dbConnect;
 
@@ -188,13 +189,6 @@ public class Database extends dbConnect {
         return movies;
     }
 
-
-//    public Users getUser(String name) throws SQLException {
-//        String query = "select * from users where accountname = " + "'" + name + "'";
-//        ResultSet result = getResult(query);
-//        result.next();
-//        return new Users(result);
-//    }
 
     // Simple Aggregation
     public MovieCount getMovieCount(String actor, String birthday) throws SQLException {

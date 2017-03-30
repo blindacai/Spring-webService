@@ -1,5 +1,7 @@
 package Tables;
 
+import Query.Database;
+
 import java.sql.SQLException;
 
 /**

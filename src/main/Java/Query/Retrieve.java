@@ -2,7 +2,6 @@ package Query;
 
 
 import Tables.Actor;
-import Tables.Database;
 import Tables.Movie;
 import Tables.MovieCount;
 import org.springframework.web.bind.annotation.*;
@@ -30,7 +29,6 @@ public class Retrieve {
     }
 
 
-    @CrossOrigin(origins = "http://localhost:3000")
     @RequestMapping(value = "/movie/{title}/{releasedate}", method = RequestMethod.GET)
     public Movie getMovie(@PathVariable("title") String title,
                           @PathVariable("releasedate") String releasedate) throws SQLException {
@@ -42,35 +40,30 @@ public class Retrieve {
         return database.getAllMovies();
     }
 
-    @CrossOrigin(origins = "http://localhost:3000")
     @RequestMapping(value = "/allmoviesone/{var1}", method = RequestMethod.GET)
     public List<Movie> getAllMovies(@PathVariable("var1") int var1) throws SQLException {
         return database.getAllMovies(var1);
 
     }
 
-    @CrossOrigin(origins = "http://localhost:3000")
     @RequestMapping(value = "/allmoviestwo/{var1}/{var2}", method = RequestMethod.GET)
     public List<Movie> getAllMovies(@PathVariable("var1") int var1,
                                     @PathVariable("var2") int var2) throws SQLException {
         return database.getAllMovies(var1, var2);
     }
 
-    @CrossOrigin(origins = "http://localhost:3000")
     @RequestMapping(value = "/actor/{name}/{birthday}", method = RequestMethod.GET)
     public Actor getActor(@PathVariable(value="name") String name,
                           @PathVariable(value="birthday") String birthday) throws SQLException {
         return database.getActor(name, birthday);
     }
 
-    @CrossOrigin(origins = "http://localhost:3000")
     @RequestMapping(value = "/allactors", method = RequestMethod.GET)
     public List<Actor> getAllActors() throws SQLException {
         return database.getAllActors();
     }
 
     // simple aggregation
-    @CrossOrigin(origins = "http://localhost:3000")
     @RequestMapping(value = "/moviecount/{name}/{birthday}", method = RequestMethod.GET)
     public MovieCount getMovieCount(@PathVariable(value="name") String name,
                                     @PathVariable(value="birthday") String birthday) throws SQLException {
@@ -87,7 +80,6 @@ public class Retrieve {
     }
 
     // nested aggregation 1
-    @CrossOrigin(origins = "http://localhost:3000")
     @RequestMapping(value = "/mostmovies", method = RequestMethod.GET)
     public List<Actor> getActorWithMostMovies() throws SQLException {
         return database.getActorWithMostMovies();
@@ -101,7 +93,6 @@ public class Retrieve {
     }
 
     // nested aggregation ALL
-    @CrossOrigin(origins = "http://localhost:3000")
     @RequestMapping(value = "/nested/{var1}/{var2}", method = RequestMethod.GET)
     public List<Rating> getNestedAggregation(@PathVariable(value="var1") String var1,
                                        @PathVariable(value="var2") String var2) throws SQLException {
@@ -109,7 +100,6 @@ public class Retrieve {
     }
 
     // posting a review
-    @CrossOrigin(origins = "http://localhost:3000")
     @RequestMapping(value = "/postreview", method = RequestMethod.POST)
     public int insertReview(@RequestBody LinkedHashMap<String, Object> object) throws SQLException {
         String text = (String) object.get("text");
@@ -147,7 +137,6 @@ public class Retrieve {
     }
 
     // deleting a movie
-    @CrossOrigin(origins = "http://localhost:3000")
     @RequestMapping(value = "/deletemovie", method = RequestMethod.DELETE)
     public void deleteMovie(@RequestParam(value="title") String title,
                             @RequestParam(value="releasedate") String releasedate) throws SQLException {
@@ -171,7 +160,6 @@ public class Retrieve {
         return database.getAllComments("Coming Home", "2014-05-16");
     }
 
-    @CrossOrigin(origins = "http://localhost:3000")
     @RequestMapping(value = "/login", method = RequestMethod.POST)
     public boolean login(@RequestBody LinkedHashMap<String, String> params) throws SQLException {
         String username = params.get("username");
