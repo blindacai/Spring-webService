@@ -23,6 +23,7 @@ import java.util.List;
 @RestController
 public class Retrieve {
     private Database database;
+    private Users user;
 
     public Retrieve(){
         this.database = new Database();
@@ -86,7 +87,6 @@ public class Retrieve {
     }
 
     // nested aggregation 2
-    @CrossOrigin(origins = "http://localhost:3000")
     @RequestMapping(value = "/leastmovies", method = RequestMethod.GET)
     public List<Actor> getActorWithLeastMovies() throws SQLException {
         return database.getActorWithLeastMovies();
@@ -124,7 +124,7 @@ public class Retrieve {
     }
 
     @RequestMapping(value = "/updatereview", method = RequestMethod.POST)
-    public int updateReview(@RequestBody LinkedHashMap<String, Object> object) throws SQLException {
+    public int updateReview(@RequestBody LinkedHashMap<String, Object> object){
         String text = (String) object.get("text");
         int rating = (int) object.get("rating");
         int id = (int) object.get("id");
@@ -170,4 +170,8 @@ public class Retrieve {
         return database.checkPassword(username, password);
     }
 
+    @RequestMapping(value = "/userExist")
+    public String checkExist(){
+        return database.getUser();
+    }
 }

@@ -16,6 +16,8 @@ public class Database extends dbConnect {
     private Connection connection;
     private Statement statement;
 
+    private Users user = null;
+
     public Database(){
         this.connect();
         this.connection = this.getConnection();
@@ -370,7 +372,7 @@ public class Database extends dbConnect {
     }
 
     public boolean checkPassword(String username, String password) throws SQLException {
-        Users user = getUser(username);
+        this.user = getUser(username);
 
         if (user == null) {
             return false;
@@ -380,4 +382,7 @@ public class Database extends dbConnect {
         }
     }
 
+    public String getUser(){
+        return (this.user == null)? user.getAccountName() : null;
+    }
 }
