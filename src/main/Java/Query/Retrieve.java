@@ -164,19 +164,18 @@ public class Retrieve {
     public boolean login(@RequestBody LinkedHashMap<String, String> params) throws SQLException {
         String username = params.get("username");
         String password = params.get("password");
-        System.out.println(username);
-        System.out.println(password);
 
         return database.checkPassword(username, password);
     }
 
     @RequestMapping(value = "/logout")
-    public void logout(){
+    public void logout() throws SQLException {
+        System.out.println("Logging out user");
         database.resetUser();
     }
 
-    @RequestMapping(value = "/userExist")
-    public String checkExist(){
+    @RequestMapping(value = "/userExist", method = RequestMethod.GET)
+    public String checkExist() throws SQLException {
         return database.getUser();
     }
 }

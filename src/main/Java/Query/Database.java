@@ -383,7 +383,7 @@ public class Database extends dbConnect {
     }
 
     public String getUser(){
-        return (this.user == null)? user.getAccountName() : null;
+        return (this.user == null)? null : this.user.getAccountName();
     }
 
     public void resetUser(){
