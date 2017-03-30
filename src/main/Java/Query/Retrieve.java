@@ -151,6 +151,12 @@ public class Retrieve {
     @RequestMapping(value = "/deletemovie/{title}/{releasedate}", method = RequestMethod.DELETE)
     public int deleteMovie(@PathVariable(value="title") String title,
                             @PathVariable(value="releasedate") String releasedate) throws SQLException {
+
+        try {
+            Movie m = database.getMovie(title, releasedate);
+        } catch (SQLException e) {
+            return 2;
+        }
         try {
             database.deleteMovie(title, releasedate);
             return 1;
