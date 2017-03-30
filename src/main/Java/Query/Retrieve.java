@@ -117,14 +117,14 @@ public class Retrieve {
 
     }
 
-    @RequestMapping(value = "/getreview/{id}", method = RequestMethod.GET)
-    public Review getUserReview(@PathVariable(value="id") String id) throws SQLException {
+    @RequestMapping(value = "/getreview/{id}/{user}", method = RequestMethod.GET)
+    public Review getUserReview(@PathVariable(value="id") String id, @PathVariable(value="user") String user) throws SQLException {
 
         int foo = Integer.parseInt(id);
-        Review r = database.getUserReview(foo);
+        //Review r = database.getUserReview(foo);
 
-        if (database.getUser().equals(r.getAccountName())) {
-            return r;
+        if (database.getUser().equals(user)) {
+            return database.getUserReview(foo);
         }
         else return null;
         //return database.getUserReview(foo);
