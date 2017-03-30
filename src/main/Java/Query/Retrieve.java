@@ -170,6 +170,11 @@ public class Retrieve {
         return database.checkPassword(username, password);
     }
 
+    @RequestMapping(value = "/logout")
+    public void logout(){
+        database.resetUser();
+    }
+
     @RequestMapping(value = "/userExist")
     public String checkExist(){
         return database.getUser();
