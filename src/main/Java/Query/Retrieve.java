@@ -126,6 +126,26 @@ public class Retrieve {
 
     }
 
+    @RequestMapping(value = "/getreview/{id}", method = RequestMethod.GET)
+    public Review getUserReview(@PathVariable(value="id") String id) throws SQLException {
+
+        int foo = Integer.parseInt(id);
+        return database.getUserReview(foo);
+    }
+
+    @RequestMapping(value = "/updatereview", method = RequestMethod.POST)
+    public int updateReview(@RequestBody LinkedHashMap<String, Object> object) throws SQLException {
+        String text = (String) object.get("text");
+        int rating = (int) object.get("rating");
+        int id = (int) object.get("id");
+        try{
+            database.updateReview(text, rating, id);
+            return 1;
+        } catch (SQLException e) {
+            return 0;
+        }
+    }
+
     // deleting a movie
     @CrossOrigin(origins = "http://localhost:3000")
     @RequestMapping(value = "/deletemovie", method = RequestMethod.DELETE)

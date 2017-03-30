@@ -76,7 +76,7 @@ create table review (
 	title varchar(50) not null, 
 	releasedate varchar(10) not null, 
 	foreign key (accountname) references users on delete cascade, 
-	foreign key (title, releasedate) references movie on delete cascade 
+	foreign key (title, releasedate) references movie 
 );
 create table upvote ( 
 	accountname varchar(25) not null, 
@@ -96,6 +96,7 @@ insert into movie values('Mona Lisa Smile', '2003-12-19', 'Mike Newell', 'Columb
 insert into movie values('Saving Private Ryan', '1998-07-24', 'Steven Spielberg', 'DreamWorks Pictures');
 insert into movie values('Harry Potter', '2001-11-04', 'Chris Columbus', 'Warner Bros. Pictures');
 insert into movie values('Coming Home', '2014-05-16', 'Zhang Yimou', 'Sony Pictures Classics');
+insert into movie values('Beauty and the Beast', '2017-02-23', 'Bill Condon', 'Walt Disney Studios');
 -- insert into actor
 insert into actor values('Tom Hanks', '1956-07-09', 'American');
 insert into actor values('Gong Li', '1965-12-31', 'Singaporean');
@@ -131,17 +132,22 @@ insert into comments values('omg', '2004-01-25', 2, seqC.NEXTVAL, 'gameofthreads
 insert into comments values('hehehe', '1998-08-13', 1, seqC.NEXTVAL, 'helloworld', 'Saving Private Ryan', '1998-07-24');
 insert into comments values('what a movie', '2016-01-10', 0, seqC.NEXTVAL, 'helloworld', 'Coming Home', '2014-05-16');
 insert into comments values('what a movie two', '2016-01-12', 3, seqC.NEXTVAL, 'userone', 'Coming Home', '2014-05-16');
+insert into comments values('My favourite movie', '2017-03-23', 1, seqC.NEXTVAL, 'helloworld', 'Beauty and the Beast', '2017-02-23');
 -- insert into review
 insert into review values ('The actors did a phenomenal job.', '2000-10-30', 4, seqR.NEXTVAL, 'helloworld', 'Remember the Titans', '2000-09-23');
 insert into review values ('I didnt think I would like a movie about football, but it was amazing!', '2001-02-16', 3, seqR.NEXTVAL, 'foobar', 'Remember the Titans', '2000-09-23');
 insert into review values ('Watched it in the cinema, watched again at home', '2012-08-25', 4, seqR.NEXTVAL, 'foobar', 'Saving Private Ryan', '1998-07-24');
 insert into review values ('It was ok. I liked the book better.', '2016-12-12', 2, seqR.NEXTVAL, 'deadbeef', 'Harry Potter', '2001-11-04');
 insert into review values ('This movie is amazing. I love the way how the director tells the story..', '2008-03-25', 5, seqR.NEXTVAL, 'deadbeef', 'Mona Lisa Smile', '2003-12-19');
+insert into review values ('woow', '2010-03-25', 3, seqR.NEXTVAL, 'gameofthreads', 'Harry Potter', '2001-11-04');
+insert into review values ('Very GOOD', '2012-01-25', 4, seqR.NEXTVAL, 'bobbytables', 'Coming Home', '2014-05-16');
 
 insert into review values ('Good', '2007-03-25', 5, seqR.NEXTVAL, 'foobar', 'Mona Lisa Smile', '2003-12-19');
 insert into review values ('Thumbs up', '2002-03-25', 5, seqR.NEXTVAL, 'helloworld', 'Mona Lisa Smile', '2003-12-19');
 insert into review values ('Best', '2001-03-25', 5, seqR.NEXTVAL, 'bobbytables', 'Mona Lisa Smile', '2003-12-19');
 insert into review values ('Great', '2000-03-25', 5, seqR.NEXTVAL, 'gameofthreads', 'Mona Lisa Smile', '2003-12-19');
+insert into review values ('Amazing', '2005-03-25', 5, seqR.NEXTVAL, 'userone', 'Mona Lisa Smile', '2003-12-19');
+insert into review values ('So good', '2006-03-25', 5, seqR.NEXTVAL, 'admin', 'Mona Lisa Smile', '2003-12-19');
 
 -- insert into upvote
 insert into upvote values('helloworld', 2);

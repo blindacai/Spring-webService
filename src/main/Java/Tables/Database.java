@@ -3,6 +3,7 @@ package Tables;
 import Utils.Query;
 import Utils.dbConnect;
 
+import javax.xml.transform.Result;
 import java.sql.*;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -216,6 +217,15 @@ public class Database extends dbConnect {
         return new Rating(result);
     }
 
+    // return a review object
+    public Review getUserReview(int id) throws SQLException{
+        String query = "select * from review where id = " + id;
+        ResultSet result = getResult(query);
+        result.next();
+
+        return new Review(result);
+    }
+
     // Update Query: insert a new review
     public void postReview(String text, int rating, String user, String movieTitle, String releaseDate) throws SQLException{
 
@@ -229,6 +239,19 @@ public class Database extends dbConnect {
         ps.setString(4, user);
         ps.setString(5, movieTitle);
         ps.setString(6, releaseDate);
+        ps.executeUpdate();
+        connection.commit();
+    }
+
+    // Update Query2: update a review
+    public void updateReview(String text, int rating, int id) throws SQLException {
+        java.util.Date date = new java.util.Date();
+        String modifiedDate = new SimpleDateFormat("yyyy-MM-dd").format(date);
+        PreparedStatement ps = connection.prepareStatement("update review set text = ?, rating = ?, postdate = ? where id = ?");
+        ps.setString(1, text);
+        ps.setInt(2, rating);
+        ps.setString(3, modifiedDate);
+        ps.setInt(4, id);
         ps.executeUpdate();
         connection.commit();
     }
