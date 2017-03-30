@@ -202,4 +202,12 @@ public class Retrieve {
     public boolean checkAdminExist() throws SQLException {
         return database.getUser().equals("admin");
     }
+
+    @RequestMapping(value = "/adminlogin", method = RequestMethod.POST)
+    public boolean adminlogin(@RequestBody LinkedHashMap<String, String> params) throws SQLException {
+        String username = params.get("username");
+        String password = params.get("password");
+
+        return database.checkAdminPassword(username, password);
+    }
 }

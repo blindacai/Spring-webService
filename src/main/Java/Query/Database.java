@@ -384,6 +384,17 @@ public class Database extends dbConnect {
         }
     }
 
+    public boolean checkAdminPassword(String username, String password) throws SQLException {
+        this.user = getUser(username);
+
+        if (user == null) {
+            return false;
+        } else {
+            System.out.println(user.toString());
+            return user.getPassword().equals(password) && user.getAccountName().equals("admin");
+        }
+    }
+
     public String getUser(){
         return (this.user == null)? null : this.user.getAccountName();
     }
