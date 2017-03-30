@@ -1,5 +1,6 @@
 package Tables;
 
+import Query.Database;
 import com.fasterxml.jackson.annotation.JsonInclude;
 
 import java.sql.ResultSet;

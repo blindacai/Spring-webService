@@ -2,18 +2,19 @@ package Tables;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Date;
 
 public class Users {
 
-    private String accountName;
-    private String email;
-    private String birthday;
+    private String accountName = null;
+    private String password = null;
 
-    public Users(ResultSet result) throws SQLException {
-        this.accountName = result.getString("accountname");
-        this.email = result.getString("email");
-        this.birthday = result.getString("birthday");
+    public Users(ResultSet result){
+        try{
+            this.accountName = result.getString("accountname");
+            this.password = result.getString("password");
+        }catch (SQLException e){
+            // do nothing
+        }
     }
 
     public String getAccountName() {
@@ -24,19 +25,15 @@ public class Users {
         this.accountName = accountName;
     }
 
-    public String getEmail() {
-        return email;
+    public String getPassword() {
+        return password;
     }
 
-    public void setEmail(String email) {
-        this.email = email;
+    public void setPassword(String password) {
+        this.password = password;
     }
 
-    public String getBirthday() {
-        return birthday;
-    }
-
-    public void setBirthday(String birthday) {
-        this.birthday = birthday;
+    public String toString() {
+        return "Username: " + getAccountName() + " Password: " + getPassword();
     }
 }
