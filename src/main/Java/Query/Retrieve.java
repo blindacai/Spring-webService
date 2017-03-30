@@ -148,9 +148,9 @@ public class Retrieve {
 
     // deleting a movie
     @CrossOrigin(origins = "http://localhost:3000")
-    @RequestMapping(value = "/deletemovie", method = RequestMethod.DELETE)
-    public int deleteMovie(@RequestParam(value="title") String title,
-                            @RequestParam(value="releasedate") String releasedate) throws SQLException {
+    @RequestMapping(value = "/deletemovie/{title}/{releasedate}", method = RequestMethod.DELETE)
+    public int deleteMovie(@PathVariable(value="title") String title,
+                            @PathVariable(value="releasedate") String releasedate) throws SQLException {
         try {
             database.deleteMovie(title, releasedate);
             return 1;
