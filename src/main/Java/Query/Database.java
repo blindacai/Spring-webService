@@ -1,9 +1,9 @@
-package Tables;
+package Query;
 
+import Tables.*;
 import Utils.Query;
 import Utils.dbConnect;
 
-import javax.xml.transform.Result;
 import java.sql.*;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -15,6 +15,8 @@ import java.util.List;
 public class Database extends dbConnect {
     private Connection connection;
     private Statement statement;
+
+    private Users user = null;
 
     public Database(){
         this.connect();
@@ -189,13 +191,6 @@ public class Database extends dbConnect {
         return movies;
     }
 
-
-//    public Users getUser(String name) throws SQLException {
-//        String query = "select * from users where accountname = " + "'" + name + "'";
-//        ResultSet result = getResult(query);
-//        result.next();
-//        return new Users(result);
-//    }
 
     // Simple Aggregation
     public MovieCount getMovieCount(String actor, String birthday) throws SQLException {
@@ -377,7 +372,7 @@ public class Database extends dbConnect {
     }
 
     public boolean checkPassword(String username, String password) throws SQLException {
-        Users user = getUser(username);
+        this.user = getUser(username);
 
         if (user == null) {
             return false;
@@ -387,4 +382,11 @@ public class Database extends dbConnect {
         }
     }
 
+    public String getUser(){
+        return (this.user == null)? user.getAccountName() : null;
+    }
+
+    public void resetUser(){
+        this.user = null;
+    }
 }
