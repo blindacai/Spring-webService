@@ -120,7 +120,13 @@ public class Retrieve {
     public Review getUserReview(@PathVariable(value="id") String id) throws SQLException {
 
         int foo = Integer.parseInt(id);
-        return database.getUserReview(foo);
+        Review r = database.getUserReview(foo);
+
+        if (database.getUser().equals(r.getAccountName())) {
+            return r;
+        }
+        else return null;
+        //return database.getUserReview(foo);
     }
 
     @RequestMapping(value = "/updatereview", method = RequestMethod.POST)
@@ -189,5 +195,10 @@ public class Retrieve {
     @RequestMapping(value = "/userExist", method = RequestMethod.GET)
     public String checkExist() throws SQLException {
         return database.getUser();
+    }
+
+    @RequestMapping(value = "/adminExist", method = RequestMethod.GET)
+    public boolean checkAdminExist() throws SQLException {
+        return database.getUser().equals("admin");
     }
 }
