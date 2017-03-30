@@ -104,7 +104,8 @@ public class Retrieve {
     public int insertReview(@RequestBody LinkedHashMap<String, Object> object) throws SQLException {
         String text = (String) object.get("text");
         int rating = (int) object.get("rating");
-        String user = (String) object.get("accountName");
+        //String user = (String) object.get("accountName");
+        String user = database.getUser();
         String title = (String) object.get("title");
         String date = (String) object.get("releaseDate");
         try{
